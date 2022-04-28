@@ -1,9 +1,9 @@
 import WallMethods from '../utilClasses/WallMethods.js'
 
-function checkNegativeHeight(walls_State, setStatus, wall_Index) {
+function checkHeightZero(walls_State, setStatus, wall_Index) {
 
     if (WallMethods.getWallsHeight(walls_State) <= 0)
-        return setStatus('AVISO: Altura das paredes possui valor 0 ou Negativo')
+        return setStatus('AVISO: Altura das paredes possui valor 0')
 }
 
 function checkLayersAmount(walls_State, setStatus, wall_Index) {
@@ -59,7 +59,17 @@ const rulesArray = [ // Last array indexes has priority in status message
     checkHeightWallUsage,
     checkWidthWallUsage,
     checkMinWallArea,
-    checkNegativeHeight
+    checkHeightZero
 ]
 
-export default rulesArray
+export default function verifyConditions(walls_State, setStatus) {
+
+    setStatus('ok')
+
+    for (let i = 0; i < WallMethods.getWallsAmount(walls_State); i++) {
+
+        rulesArray.forEach(element => {
+            element(walls_State, setStatus, i)
+        });
+    }
+}

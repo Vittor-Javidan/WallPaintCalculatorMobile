@@ -27,19 +27,16 @@ export default class WallMethods {
     static getTotalPrice(walls_State) { return walls_State.totalPrice }
     static getPricesArrayLength(walls_State) { return walls_State.pricesArray.length }
 
-    static getWallArea(walls_State, wall_index) {
-        return Number(WallMethods.getWallWidth(walls_State, wall_index)) * Number(WallMethods.getWallsHeight(walls_State))
-    }
-
     static setWallsHeight(setWalls, heightValue) {
 
         if(!isNaN(heightValue))
-            setWalls(prev => (
-                {
-                    ...prev,
-                    height: heightValue
-                }
-            ))
+            setWalls(prev => {
+
+                const newWall = {...prev}
+                newWall.height = heightValue
+
+                return newWall
+            })
     }
 
     static setWallWidth(setWalls, wall_index, widthValue) {
@@ -47,39 +44,47 @@ export default class WallMethods {
         if(!isNaN(widthValue))
             setWalls(prev => {
 
-                const newWallArray = [...prev.wallsArray]
-                newWallArray[wall_index] = {
-                    ...newWallArray[wall_index],
-                    width: widthValue
-                }
+                const newWall = {...prev}
+                newWall.wallsArray[wall_index].width = widthValue
 
-                return {
-                    ...prev,
-                    wallsArray: newWallArray
-                }
+                return newWall
             })
     }
 
     static setWallsInkLayers(setWalls, layersAmount) {
 
         if(!isNaN(layersAmount))
-            setWalls(prev => (
-                {
-                    ...prev,
-                    inkLayers: Number(layersAmount)
-                }
-            ))
+            setWalls(prev => {
+
+                const newWall = {...prev}
+                newWall.inkLayers = Number(layersAmount)
+
+                return newWall
+            })
     }
 
     static setWallsInkEfficiency(setWalls, efficiencyValue) {
 
         if(!isNaN(efficiencyValue))
-            setWalls(prev => (
-                {
-                    ...prev,
-                    inkEfficiency: efficiencyValue
-                }
-            ))
+            setWalls(prev => {
+
+                const newWall = {...prev}
+                newWall.inkEfficiency = efficiencyValue
+
+                return newWall
+            })
+    }
+
+    static setWallObjectWidth(setWalls, wall_Index, object_Index, widthValue) {
+
+        if(!isNaN(widthValue))
+            setWalls(prev => {
+
+                const newWalls = { ...prev }
+                newWalls.wallsArray[wall_Index].objectsArray[object_Index].width = widthValue
+
+                return newWalls
+            })
     }
 
     static setWallDuplicatesAmount(setWalls, wall_index, duplicatesAmount) {
@@ -87,13 +92,79 @@ export default class WallMethods {
         if(!isNaN(duplicatesAmount))
             setWalls(prev => {
 
-                duplicatesAmount = Number(duplicatesAmount)
-
                 const newWalls = { ...prev }
-                newWalls.wallsArray[wall_index].duplicates = duplicatesAmount
+                newWalls.wallsArray[wall_index].duplicates = Number(duplicatesAmount)
 
                 return newWalls
             })
+    }
+
+    static setWallObjectHeight(setWalls, wall_Index, object_Index, heightValue) {
+
+        
+        if(!isNaN(heightValue))
+            setWalls(prev => {
+                
+                const newWalls = { ...prev }
+                newWalls.wallsArray[wall_Index].objectsArray[object_Index].height = heightValue
+
+                return newWalls
+            })
+    }
+
+    static setWallObjectName(setWalls, wall_Index, object_Index, nameString) {
+
+        setWalls(prev => {
+
+            const newWalls = { ...prev }
+            newWalls.wallsArray[wall_Index].objectsArray[object_Index].name = String(nameString)
+
+            return newWalls
+        })
+    }
+
+    static setCansString(setWalls, cansString) {
+
+        setWalls(prev => {
+
+            const newWall = {...prev}
+            newWall.cansString = cansString
+
+            return newWall
+        })
+    }
+
+    static setCansPricesString(setWalls, cansPricesString) {
+
+        setWalls(prev => {
+
+            const newWall = {...prev}
+            newWall.cansPricesString = cansPricesString
+
+            return newWall
+        })
+    }
+
+    static arrayExpansion(array, arraySize, data){
+
+        let newArray = [...array]
+
+        let diff = arraySize - newArray.length
+        for (let i = 0; i < diff; i++)
+            newArray.push(data)
+
+        return newArray
+    }
+
+    static arrayContraction(array, arraySize){
+
+        let newArray = [...array]
+
+        let diff = newArray.length - arraySize
+        for (let i = 0; i < diff; i++)
+            newArray.pop()
+
+        return newArray
     }
 
     static setWallsAmount(setWalls, wallsAmount) {
@@ -103,31 +174,18 @@ export default class WallMethods {
 
                 wallsAmount = Number(wallsAmount)
 
-                const wallsArray = prev.wallsArray
-                const wallsArrayLength = wallsArray.length
-
-                //handles if its needed to create new Walls, or delete some, to fit the new walls amount
-                if (wallsAmount > wallsArrayLength) {
-
-                    let diff = wallsAmount - wallsArrayLength
-                    for (let i = 0; i < diff; i++) {
-                        wallsArray.push(
-                            {
-                                width: appConfig.WALL_WIDTH,
-                                duplicates: appConfig.DUPLICATES_AMOUNT,
-                                wallObjectsAmount: appConfig.WALLS_OBJECT_AMOUNT,
-                                objectsArray: []
-                            }
-                        )
-                    }
-
-                } else {
-
-                    let diff = wallsArrayLength - wallsAmount
-                    for (let i = 0; i < diff; i++) {
-                        wallsArray.pop()
-                    }
+                const dataFormat = {
+                    width: appConfig.WALL_WIDTH,
+                    duplicates: appConfig.DUPLICATES_AMOUNT,
+                    wallObjectsAmount: appConfig.WALLS_OBJECT_AMOUNT,
+                    objectsArray: []
                 }
+                
+                let wallsArray = prev.wallsArray
+
+                wallsAmount > wallsArray.length
+                    ? wallsArray = WallMethods.arrayExpansion(wallsArray, wallsAmount, dataFormat)
+                    : wallsArray = WallMethods.arrayContraction(wallsArray, wallsAmount)
 
                 return {
                     ...prev,
@@ -144,37 +202,23 @@ export default class WallMethods {
 
                 objectsAmount = Number(objectsAmount)
 
-                let wallsArray = prev.wallsArray
-                const objectsArray = wallsArray[wall_index].objectsArray
+                const dataFormat = {
+                    name: ``,
+                    height: 0,
+                    width: 0
+                }
+
+                const newWall = {...prev}
+                let wallsArray = newWall.wallsArray
+                let objectsArray = newWall.wallsArray[wall_index].objectsArray
                 const objectsArrayLength = objectsArray.length
 
-                //handles if its needed to create new Objects, or delete some, to fit the new Objects amount
-                if (objectsAmount > objectsArrayLength) {
+                objectsAmount > objectsArrayLength
+                    ? objectsArray = WallMethods.arrayExpansion(objectsArray, objectsAmount, dataFormat)
+                    : objectsArray = WallMethods.arrayContraction(objectsArray, objectsAmount)
 
-                    let diff = objectsAmount - objectsArrayLength
-                    for (let i = 0; i < diff; i++) {
-                        objectsArray.push(
-                            {
-                                name: ``,
-                                height: 0,
-                                width: 0
-                            }
-                        )
-                    }
-
-                } else {
-
-                    let diff = objectsArrayLength - objectsAmount
-                    for (let i = 0; i < diff; i++) {
-                        objectsArray.pop()
-                    }
-                }
-
-                wallsArray[wall_index] = {
-                    ...wallsArray[wall_index],
-                    wallObjectsAmount: objectsAmount,
-                    objectsArray: objectsArray
-                }
+                wallsArray[wall_index].wallObjectsAmount = objectsAmount
+                wallsArray[wall_index].objectsArray = objectsArray
 
                 return {
                     ...prev,
@@ -183,84 +227,39 @@ export default class WallMethods {
             })
     }
 
-    static setWallObjectWidth(setWalls, wall_Index, object_Index, widthValue) {
-
-        if(!isNaN(widthValue))
-            setWalls(prev => {
-
-                widthValue = widthValue
-
-                const newWalls = { ...prev }
-                newWalls.wallsArray[wall_Index].objectsArray[object_Index].width = widthValue
-
-                return newWalls
-            })
-    }
-
-    static setWallObjectHeight(setWalls, wall_Index, object_Index, heightValue) {
-
-        
-        if(!isNaN(heightValue))
-            setWalls(prev => {
-
-                heightValue = heightValue
-                
-                const newWalls = { ...prev }
-                newWalls.wallsArray[wall_Index].objectsArray[object_Index].height = heightValue
-
-                return newWalls
-            })
-    }
-
-    static setWallObjectName(setWalls, wall_Index, object_Index, nameString) {
-
-        setWalls(prev => {
-
-            nameString = String(nameString)
-
-            const newWalls = { ...prev }
-            newWalls.wallsArray[wall_Index].objectsArray[object_Index].name = nameString
-
-            return newWalls
-        })
-    }
-
-    static setCansString(setWalls, cansString) {
-
-        setWalls(prev => {
-            return {
-                ...prev,
-                cansString: cansString
-            }
-        })
-    }
-
-    static setCansPricesString(setWalls, cansPricesString) {
-
-        setWalls(prev => {
-            return {
-                ...prev,
-                cansPricesString: cansPricesString
-            }
-        })
-    }
-
     static getWallTotalObjectsWidth(walls_State, wall_index) {
 
         let totalObjectsWidth = 0
         for (let i = 0; i < WallMethods.getWallObjectsArrayLenght(walls_State, wall_index); i++) {
-            totalObjectsWidth += Number(WallMethods.getWallObjectWidth(walls_State, wall_index, i))
+
+            let objectWidth = Number(WallMethods.getWallObjectWidth(walls_State, wall_index, i))
+            totalObjectsWidth += objectWidth
         }
         return totalObjectsWidth
+    }
+
+    static getWallArea(walls_State, wall_index) {
+        let wallWidth = Number(WallMethods.getWallWidth(walls_State, wall_index))
+        let wallHeight = Number(WallMethods.getWallsHeight(walls_State))
+        return wallWidth * wallHeight
     }
 
     static getTotalWallArea(walls_State) {
 
         let totalArea = 0
         for (let i = 0; i < WallMethods.getWallsAmount(walls_State); i++) {
-            totalArea += Number(WallMethods.getWallArea(walls_State, i)) * Number(WallMethods.getWallDuplicatesAmount(walls_State, i))
+
+            let wallArea = WallMethods.getWallArea(walls_State, i)
+            let wallDuplicates = Number(WallMethods.getWallDuplicatesAmount(walls_State, i))
+            totalArea += wallArea * wallDuplicates
         }
         return totalArea
+    }
+
+    static getObjectArea(walls_State, wall_index, object_index){
+        let objectHeight = Number(WallMethods.getWallObjectHeight(walls_State, wall_index, object_index))
+        let objectWidth = Number(WallMethods.getWallObjectWidth(walls_State, wall_index, object_index))
+        return objectWidth * objectHeight
     }
 
     static getTotalObjectArea(walls_State) {
@@ -270,7 +269,9 @@ export default class WallMethods {
         for (let i = 0; i < WallMethods.getWallsAmount(walls_State); i++) {
             for (let j = 0; j < WallMethods.getWallObjectsAmount(walls_State, i); j++) {
 
-                totalObjectsArea += Number(WallMethods.getWallObjectHeight(walls_State, i, j)) * Number(WallMethods.getWallObjectWidth(walls_State, i, j)) * Number(WallMethods.getWallDuplicatesAmount(walls_State, i))
+                let objectArea = WallMethods.getObjectArea(walls_State, i, j)
+                let wallDuplicates = Number(WallMethods.getWallDuplicatesAmount(walls_State, i))
+                totalObjectsArea += objectArea * wallDuplicates
             }
         }
 
@@ -278,7 +279,10 @@ export default class WallMethods {
     }
 
     static getTotalAreaToPaint(walls_State) {
-        return Number(WallMethods.getTotalWallArea(walls_State)) - Number(WallMethods.getTotalObjectArea(walls_State))
+
+        let totalWallArea = WallMethods.getTotalWallArea(walls_State)
+        let totalObjectArea = WallMethods.getTotalObjectArea(walls_State)
+        return totalWallArea - totalObjectArea
     }
 
     static calculateCans(setWalls) {
@@ -286,9 +290,7 @@ export default class WallMethods {
         setWalls(prev => {
 
             let totalCans = ''
-            let areaToPaint = (
-                Number(WallMethods.getTotalAreaToPaint(prev))
-            ) * prev.inkLayers
+            let areaToPaint = WallMethods.getTotalAreaToPaint(prev) * prev.inkLayers
             const cansAmountArray = []
 
             // Converts the cansString into a Number array, removing any invalid element
@@ -358,17 +360,5 @@ export default class WallMethods {
                 totalPrice: totalPrice
             }
         })
-    }
-
-    static verifyConditions(walls_State, setStatus, rulesArray) {
-
-        setStatus('ok')
-
-        for (let i = 0; i < WallMethods.getWallsAmount(walls_State); i++) {
-
-            rulesArray.forEach(element => {
-                element(walls_State, setStatus, i)
-            });
-        }
     }
 }

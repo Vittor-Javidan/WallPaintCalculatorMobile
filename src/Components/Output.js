@@ -8,15 +8,17 @@ import {
 } from 'react-native'
 
 import WallMethods from '../Scripts/utilClasses/WallMethods'
-import rulesArray from '../Scripts/Rules/rulesDefinition'
+import verifyConditions from '../Scripts/Rules/rulesDefinition'
 
 export default function Output() {
 
     const { walls } = React.useContext(AppContext)
     const [status, setStatus] = React.useState('')
 
+    console.log('output rendered')
+
     React.useEffect(()=> {
-        WallMethods.verifyConditions(walls, setStatus, rulesArray)
+        verifyConditions(walls, setStatus)
     }, [walls])
 
     return (
@@ -25,7 +27,9 @@ export default function Output() {
             <Text style={styles.Texts}>{status}</Text>
             <Text style={styles.Texts}>Área total de parede: {WallMethods.getTotalWallArea(walls)} m2</Text>
             <Text style={styles.Texts}>Área somada dos objetos: {WallMethods.getTotalObjectArea(walls)} m2</Text>
-            <Text style={styles.Texts}>Área total a ser pintada: {WallMethods.getTotalAreaToPaint(walls)} m2</Text>
+            <Text style={styles.Texts}>
+                Área total a ser pintada: {WallMethods.getTotalAreaToPaint(walls)} m2, {WallMethods.getWallsInkLayers(walls)} demãos
+            </Text>
             <Text style={styles.Texts}>Total de latas de tinta: {WallMethods.getTotalCans(walls)}</Text>
             <Text style={styles.Texts}>Preço total gasto em tinta: {WallMethods.getTotalPrice(walls)}</Text>
         </View>

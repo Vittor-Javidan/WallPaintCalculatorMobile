@@ -48,8 +48,6 @@ export default function App() {
         setWalls
     }
 
-    console.log(walls)
-
     return (
         <AppContext.Provider value={props}>
             <View style={styles.AppScreen}>

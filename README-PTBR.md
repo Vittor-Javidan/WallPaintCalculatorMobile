@@ -76,7 +76,6 @@ diferentes.
 
 - ### A fazer:
 
-	- Formatar os inputs para que nunca fiquem com valores negativos
 	- Adicionar limitar e adicionar inputs para o usuário definir qual o valore de paredes máximas ou objetos máximos caso ele deseje expandir o limite padrão
 	- Adicionar um getObjectArea no WallMethods
-	
+	- adicionar opção de idioma (ENG, PT-BR)

@@ -23,11 +23,11 @@ export default function Walls() {
                     Configurações: 
                 </Text>
                 <View style={styles.ConfigurationInputs}>
-                    <InkEfficiencyInput style={inputStyles}/>
-                    <InkLayersInput style={inputStyles}/>
                     <CansSizesInput style={inputStyles}/>
                     <CansPricesInput style={inputStyles}/>
+                    <InkEfficiencyInput style={inputStyles}/>
                     <WallsHeightInput style={inputStyles}/>
+                    <InkLayersInput style={inputStyles}/>
                     <WallsAmountInput style={inputStyles}/>
                 </View>
             </View>

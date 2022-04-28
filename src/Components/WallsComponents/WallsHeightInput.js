@@ -17,7 +17,7 @@ export default function WallsHeightInput({style}){
     return (
         <View style={style.container}>
             <Text style={style.label}>
-                Altura das paredes (m)
+                Altura padrão por parede (m)
             </Text>
             <TextInput
                 style={style.input}
