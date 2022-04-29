@@ -5,7 +5,7 @@ import {
     View,
     Text,
     TextInput,
-    StyleSheet
+    TouchableOpacity
 } from 'react-native'
 
 import WallMethods from '../../Scripts/utilClasses/WallMethods'
@@ -19,12 +19,32 @@ export default function WallsAmountInput({style}){
             <Text style={style.label}>
                 Quantidade de paredes
             </Text>
-            <TextInput
-                style={style.input}
-                keyboardType='numeric'
-                value={`${WallMethods.getWallsAmount(walls)}`}
-                onChangeText={(text)=> WallMethods.setWallsAmount(setWalls, text)}
-            />
+            <View style={style.subContainer}>
+                <TextInput
+                    style={style.input}
+                    keyboardType='numeric'
+                    value={`${WallMethods.getWallsAmount(walls)}`}
+                    onChangeText={(text)=> WallMethods.setWallsAmount(setWalls, text)}
+                />
+                <View style={style.DecreaseButton}>
+                    <TouchableOpacity 
+                        onPress={() => {
+                            WallMethods.decreaseWallCount(setWalls)
+                        }} 
+                    >
+                        <Text style={style.ButtonText}>-</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={style.IncreaseButton}>
+                    <TouchableOpacity 
+                        onPress={() => {
+                            WallMethods.increaseWallCount(setWalls)
+                        }} 
+                    >
+                        <Text style={style.ButtonText}>+</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
     )
 }

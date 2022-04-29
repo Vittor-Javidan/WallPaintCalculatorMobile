@@ -29,10 +29,10 @@ export default class WallMethods {
 
     static setWallsHeight(setWalls, heightValue) {
 
-        if(!isNaN(heightValue))
+        if (!isNaN(heightValue))
             setWalls(prev => {
 
-                const newWall = {...prev}
+                const newWall = { ...prev }
                 newWall.height = heightValue
 
                 return newWall
@@ -41,10 +41,10 @@ export default class WallMethods {
 
     static setWallWidth(setWalls, wall_index, widthValue) {
 
-        if(!isNaN(widthValue))
+        if (!isNaN(widthValue))
             setWalls(prev => {
 
-                const newWall = {...prev}
+                const newWall = { ...prev }
                 newWall.wallsArray[wall_index].width = widthValue
 
                 return newWall
@@ -53,10 +53,10 @@ export default class WallMethods {
 
     static setWallsInkLayers(setWalls, layersAmount) {
 
-        if(!isNaN(layersAmount))
+        if (!isNaN(layersAmount))
             setWalls(prev => {
 
-                const newWall = {...prev}
+                const newWall = { ...prev }
                 newWall.inkLayers = Number(layersAmount)
 
                 return newWall
@@ -65,10 +65,10 @@ export default class WallMethods {
 
     static setWallsInkEfficiency(setWalls, efficiencyValue) {
 
-        if(!isNaN(efficiencyValue))
+        if (!isNaN(efficiencyValue))
             setWalls(prev => {
 
-                const newWall = {...prev}
+                const newWall = { ...prev }
                 newWall.inkEfficiency = efficiencyValue
 
                 return newWall
@@ -77,7 +77,7 @@ export default class WallMethods {
 
     static setWallObjectWidth(setWalls, wall_Index, object_Index, widthValue) {
 
-        if(!isNaN(widthValue))
+        if (!isNaN(widthValue))
             setWalls(prev => {
 
                 const newWalls = { ...prev }
@@ -89,7 +89,7 @@ export default class WallMethods {
 
     static setWallDuplicatesAmount(setWalls, wall_index, duplicatesAmount) {
 
-        if(!isNaN(duplicatesAmount))
+        if (!isNaN(duplicatesAmount))
             setWalls(prev => {
 
                 const newWalls = { ...prev }
@@ -101,10 +101,10 @@ export default class WallMethods {
 
     static setWallObjectHeight(setWalls, wall_Index, object_Index, heightValue) {
 
-        
-        if(!isNaN(heightValue))
+
+        if (!isNaN(heightValue))
             setWalls(prev => {
-                
+
                 const newWalls = { ...prev }
                 newWalls.wallsArray[wall_Index].objectsArray[object_Index].height = heightValue
 
@@ -127,7 +127,7 @@ export default class WallMethods {
 
         setWalls(prev => {
 
-            const newWall = {...prev}
+            const newWall = { ...prev }
             newWall.cansString = cansString
 
             return newWall
@@ -138,14 +138,14 @@ export default class WallMethods {
 
         setWalls(prev => {
 
-            const newWall = {...prev}
+            const newWall = { ...prev }
             newWall.cansPricesString = cansPricesString
 
             return newWall
         })
     }
 
-    static arrayExpansion(array, arraySize, data){
+    static arrayExpansion(array, arraySize, data) {
 
         let newArray = [...array]
 
@@ -156,7 +156,7 @@ export default class WallMethods {
         return newArray
     }
 
-    static arrayContraction(array, arraySize){
+    static arrayContraction(array, arraySize) {
 
         let newArray = [...array]
 
@@ -169,7 +169,7 @@ export default class WallMethods {
 
     static setWallsAmount(setWalls, wallsAmount) {
 
-        if(!isNaN(wallsAmount))
+        if (!isNaN(wallsAmount) && Number(wallsAmount) >= 0)
             setWalls(prev => {
 
                 wallsAmount = Number(wallsAmount)
@@ -180,7 +180,7 @@ export default class WallMethods {
                     wallObjectsAmount: appConfig.WALLS_OBJECT_AMOUNT,
                     objectsArray: []
                 }
-                
+
                 let wallsArray = prev.wallsArray
 
                 wallsAmount > wallsArray.length
@@ -195,9 +195,124 @@ export default class WallMethods {
             })
     }
 
+    static deleteCansSizes(setWalls) {
+
+        setWalls(prev => {
+
+            return {
+                ...prev,
+                cansString: ''
+            }
+        })
+    }
+
+    static deleteCansPrices(setWalls) {
+
+        setWalls(prev => {
+
+            return {
+                ...prev,
+                cansPricesString: ''
+            }
+        })
+    }
+
+    static deleteInkEfficiency(setWalls) {
+
+        setWalls(prev => {
+
+            return {
+                ...prev,
+                inkEfficiency: 0
+            }
+        })
+    }
+
+    static deleteHeight(setWalls) {
+
+        setWalls(prev => {
+
+            return {
+                ...prev,
+                height: 0
+            }
+        })
+    }
+
+    static increaseInkLayerCount(setWalls) {
+
+        setWalls(prev => {
+
+            return {
+                ...prev,
+                inkLayers: prev.inkLayers + 1
+            }
+        })
+    }
+
+    static decreaseInkLayerCount(setWalls) {
+
+        setWalls(prev => {
+
+            let inkLayers = prev.inkLayers
+
+            if (inkLayers > 0)
+                inkLayers -= 1
+
+            return {
+                ...prev,
+                inkLayers: inkLayers
+            }
+        })
+    }
+
+    static increaseWallCount(setWalls) {
+
+        setWalls(prev => {
+
+            let wallsAmount = prev.wallsAmount + 1
+
+            const dataFormat = {
+                width: appConfig.WALL_WIDTH,
+                duplicates: appConfig.DUPLICATES_AMOUNT,
+                wallObjectsAmount: appConfig.WALLS_OBJECT_AMOUNT,
+                objectsArray: []
+            }
+
+            let wallsArray = prev.wallsArray
+            wallsArray = WallMethods.arrayExpansion(wallsArray, wallsAmount, dataFormat)
+
+            return {
+                ...prev,
+                wallsAmount: wallsAmount,
+                wallsArray: wallsArray
+            }
+        })
+    }
+
+    static decreaseWallCount(setWalls) {
+
+        setWalls(prev => {
+
+            let wallsAmount
+            prev.wallsAmount - 1 < 0
+                ? wallsAmount = 0
+                : wallsAmount = prev.wallsAmount - 1
+
+            let wallsArray = prev.wallsArray
+            wallsArray = WallMethods.arrayContraction(wallsArray, wallsAmount)
+
+            return {
+                ...prev,
+                wallsAmount: wallsAmount,
+                wallsArray: wallsArray
+            }
+        })
+    }
+
     static setWallObjectsAmount(setWalls, wall_index, objectsAmount) {
 
-        if(!isNaN(objectsAmount))
+        if (!isNaN(objectsAmount))
             setWalls(prev => {
 
                 objectsAmount = Number(objectsAmount)
@@ -208,7 +323,7 @@ export default class WallMethods {
                     width: 0
                 }
 
-                const newWall = {...prev}
+                const newWall = { ...prev }
                 let wallsArray = newWall.wallsArray
                 let objectsArray = newWall.wallsArray[wall_index].objectsArray
                 const objectsArrayLength = objectsArray.length
@@ -256,7 +371,7 @@ export default class WallMethods {
         return totalArea
     }
 
-    static getObjectArea(walls_State, wall_index, object_index){
+    static getObjectArea(walls_State, wall_index, object_index) {
         let objectHeight = Number(WallMethods.getWallObjectHeight(walls_State, wall_index, object_index))
         let objectWidth = Number(WallMethods.getWallObjectWidth(walls_State, wall_index, object_index))
         return objectWidth * objectHeight
@@ -289,21 +404,57 @@ export default class WallMethods {
 
         setWalls(prev => {
 
-            let totalCans = ''
-            let areaToPaint = WallMethods.getTotalAreaToPaint(prev) * prev.inkLayers
-            const cansAmountArray = []
+            // Converts the cansString and cansPricesString into a Number arrays, removing any invalid element
+            const rawCanArray = prev.cansString.split(';')
+            const rawPriceArray = prev.cansPricesString.split(';')
+            let cansArray = []
+            let pricesArray = []
+            if (cansArray.length !== pricesArray.length)
+                return { ...prev }
 
-            // Converts the cansString into a Number array, removing any invalid element
-            const rawArray = prev.cansString.split(';')
-            const cansArray = []
-            for (let i = 0; i < rawArray.length; i++) {
-                if (!isNaN(rawArray[i])) {
-                    cansArray.push(Number(rawArray[i]))
-                    cansArray.sort((a, b) => b - a)
+            for (let i = 0; i < rawCanArray.length; i++) {
+                if (!isNaN(rawCanArray[i]) && !isNaN(rawPriceArray[i])) {
+                    cansArray.push(Number(rawCanArray[i]))
+                    pricesArray.push(Number(rawPriceArray[i]))
+                }
+            }
+            console.log(cansArray)
+            console.log(pricesArray)
+
+            //Sort cansArray without losing index correlation with pricesArray
+            let tempVariable
+            let tempVariable2
+            let swapCount
+            let done = false
+
+            while(!done){
+                swapCount = 0
+                for(i=1; i < cansArray.length; i++){
+                    if(cansArray[i - 1] < cansArray[i]){
+                        
+                        tempVariable = cansArray[i]
+                        cansArray[i] = cansArray[i - 1]
+                        cansArray[i - 1] = tempVariable
+
+                        tempVariable2 = pricesArray[i]                        
+                        pricesArray[i] = pricesArray[i - 1]
+                        pricesArray[i - 1] = tempVariable2
+
+                        swapCount += 1
+                    }
+                }
+                if(swapCount === 0){
+                    done = true
                 }
             }
 
+            console.log(cansArray)
+            console.log(pricesArray)
+
             // Loops through cansArray and calculate how many cans its needed to paint the wall area
+            let totalCans = ''
+            let areaToPaint = WallMethods.getTotalAreaToPaint(prev) * prev.inkLayers
+            const cansAmountArray = []
             for (let i = 0; i < cansArray.length; i++) {
 
                 const areaPerCan = cansArray[i] * Number(WallMethods.getWallInkEfficiency(prev))
@@ -327,6 +478,7 @@ export default class WallMethods {
             return {
                 ...prev,
                 cansAmount: cansAmountArray,
+                pricesArray: pricesArray,
                 totalCans: totalCans
             }
         })
@@ -336,27 +488,15 @@ export default class WallMethods {
 
         setWalls(prev => {
 
-            // Converts the cansPricesString into a Number array, removing any invalid element
-            const rawArray = prev.cansPricesString.split(';')
-            const pricesArray = []
-            for (let i = 0; i < rawArray.length; i++) {
-                if (!isNaN(rawArray[i])) {
-                    pricesArray.push(Number(rawArray[i]))
-                    pricesArray.sort((a, b) => b - a)
-                }
-            }
-
             let totalPrice = 0
-            const cansAmountArray = WallMethods.getCansAmountArray(prev)
 
-            if (pricesArray.length === cansAmountArray.length)
-                for (let i = 0; i < cansAmountArray.length; i++) {
-                    totalPrice += pricesArray[i] * cansAmountArray[i]
+            if (prev.pricesArray.length === prev.cansAmount.length)
+                for (let i = 0; i < prev.cansAmount.length; i++) {
+                    totalPrice += prev.pricesArray[i] * prev.cansAmount[i]
                 }
 
             return {
                 ...prev,
-                pricesArray: pricesArray,
                 totalPrice: totalPrice
             }
         })

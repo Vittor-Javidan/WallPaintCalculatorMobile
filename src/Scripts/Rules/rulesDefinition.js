@@ -1,5 +1,10 @@
 import WallMethods from '../utilClasses/WallMethods.js'
 
+function checkInkEfficiencyZero(walls_State, setStatus, wall_Index) {
+    if (WallMethods.getWallInkEfficiency(walls_State) <= 0)
+        return setStatus('AVISO: Gasto de tinta igual a zero')
+}
+
 function checkHeightZero(walls_State, setStatus, wall_Index) {
 
     if (WallMethods.getWallsHeight(walls_State) <= 0)
@@ -21,7 +26,7 @@ function checkObjectsAmount(walls_State, setStatus, wall_Index) {
 function checkObjectsMinArea(walls_State, setStatus, wall_Index) {
 
     for (let i = 0; i < WallMethods.getWallObjectsAmount(walls_State, wall_Index); i++)
-        if(WallMethods.getWallObjectHeight(walls_State, wall_Index, i) * WallMethods.getWallObjectWidth(walls_State, wall_Index, i) <= 0)
+        if (WallMethods.getWallObjectHeight(walls_State, wall_Index, i) * WallMethods.getWallObjectWidth(walls_State, wall_Index, i) <= 0)
             setStatus(`AVISO: objeto ${i + 1} da Parede ${wall_Index + 1} possui área zero`)
 }
 
@@ -39,19 +44,20 @@ function checkWidthWallUsage(walls_State, setStatus, wall_Index) {
 
 function checkHeightWallUsage(walls_State, setStatus, wall_Index) {
 
-    for(let i = 0; i < WallMethods.getWallObjectsAmount(walls_State,wall_Index); i++)
+    for (let i = 0; i < WallMethods.getWallObjectsAmount(walls_State, wall_Index); i++)
         if (WallMethods.getWallsHeight(walls_State) < WallMethods.getWallObjectHeight(walls_State, wall_Index, i))
             return setStatus(`AVISO: Altura da Parede ${wall_Index + 1} é menor que a Altura do objeto ${i + 1}`)
 }
 
 function checkPricesAndCansArraysLenght(walls_State, setStatus) {
 
-    if(WallMethods.getCansAmountArrayLenght(walls_State) !== WallMethods.getPricesArrayLength(walls_State))
+    if (WallMethods.getCansAmountArrayLenght(walls_State) !== WallMethods.getPricesArrayLength(walls_State))
         setStatus('AVISO: A quantidade de latas e seus preços precisa ser a mesma')
 }
 
-const rulesArray = [ // Last array indexes has priority in status message
+const rulesArray = [ // Last array indexes has priority on status message display
 
+    checkInkEfficiencyZero,
     checkPricesAndCansArraysLenght,
     checkObjectsMinArea,
     checkObjectsAmount,

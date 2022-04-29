@@ -35,14 +35,14 @@ const styles = StyleSheet.create({
         width: '99%',
         borderWidth: 1,
         borderRadius: 5,
-        backgroundColor: '#EDE0D4'
+        backgroundColor: '#00F'
     },
     Button: {
         
     },
     Text: {
         alignSelf: 'center',
-        color: '#7F5539',
+        color: '#fff',
         fontSize: 20,
         fontWeight: '700',
     }
