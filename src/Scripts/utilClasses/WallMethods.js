@@ -15,9 +15,9 @@ export default class WallMethods {
     static getWallObjectsAmount(walls_State, wall_index) { return walls_State.wallsArray[wall_index].wallObjectsAmount }
     static getWallObjectsArray(walls_State, wall_index) { return walls_State.wallsArray[wall_index].objectsArray }
     static getWallObjectsArrayLenght(walls_State, wall_index) { return walls_State.wallsArray[wall_index].objectsArray.length }
-    static getWallObjectWidth(walls_State, wall_Index, object_Index) { return walls_State.wallsArray[wall_Index].objectsArray[object_Index].width }
-    static getWallObjectHeight(walls_State, wall_Index, object_Index) { return walls_State.wallsArray[wall_Index].objectsArray[object_Index].height }
-    static getWallObjectName(walls_State, wall_Index, object_Index) { return walls_State.wallsArray[wall_Index].objectsArray[object_Index].name }
+    static getWallObjectWidth(walls_State, wall_Index, object_index) { return walls_State.wallsArray[wall_Index].objectsArray[object_index].width }
+    static getWallObjectHeight(walls_State, wall_Index, object_index) { return walls_State.wallsArray[wall_Index].objectsArray[object_index].height }
+    static getWallObjectName(walls_State, wall_Index, object_index) { return walls_State.wallsArray[wall_Index].objectsArray[object_index].name }
 
     static getCansString(walls_State) { return walls_State.cansString }
     static getCansPriceString(walls_State) { return walls_State.cansPricesString }
@@ -75,13 +75,13 @@ export default class WallMethods {
             })
     }
 
-    static setWallObjectWidth(setWalls, wall_Index, object_Index, widthValue) {
+    static setWallObjectWidth(setWalls, wall_index, object_index, widthValue) {
 
         if (!isNaN(widthValue))
             setWalls(prev => {
 
                 const newWalls = { ...prev }
-                newWalls.wallsArray[wall_Index].objectsArray[object_Index].width = widthValue
+                newWalls.wallsArray[wall_index].objectsArray[object_index].width = widthValue
 
                 return newWalls
             })
@@ -99,25 +99,25 @@ export default class WallMethods {
             })
     }
 
-    static setWallObjectHeight(setWalls, wall_Index, object_Index, heightValue) {
+    static setWallObjectHeight(setWalls, wall_index, object_index, heightValue) {
 
 
         if (!isNaN(heightValue))
             setWalls(prev => {
 
                 const newWalls = { ...prev }
-                newWalls.wallsArray[wall_Index].objectsArray[object_Index].height = heightValue
+                newWalls.wallsArray[wall_index].objectsArray[object_index].height = heightValue
 
                 return newWalls
             })
     }
 
-    static setWallObjectName(setWalls, wall_Index, object_Index, nameString) {
+    static setWallObjectName(setWalls, wall_index, object_index, nameString) {
 
         setWalls(prev => {
 
             const newWalls = { ...prev }
-            newWalls.wallsArray[wall_Index].objectsArray[object_Index].name = String(nameString)
+            newWalls.wallsArray[wall_index].objectsArray[object_index].name = String(nameString)
 
             return newWalls
         })
@@ -310,6 +310,104 @@ export default class WallMethods {
         })
     }
 
+    static increaseWallDuplicateCount(setWalls, wall_index) {
+
+        setWalls (prev => {
+
+            const newWall = { ...prev }
+            newWall.wallsArray[wall_index].duplicates += 1
+    
+            return newWall
+        })
+    }
+
+    static decreaseWallDuplicateCount(setWalls, wall_index) {
+
+        setWalls (prev => {
+
+            const newWall = { ...prev }
+            let duplicates = newWall.wallsArray[wall_index].duplicates
+
+            duplicates - 1 < 1
+                ? duplicates = 1
+                : duplicates = duplicates - 1
+
+            newWall.wallsArray[wall_index].duplicates = duplicates
+    
+            return newWall
+        })
+    }
+
+    static increaseObjectCount(setWalls, wall_index) {
+
+        setWalls(prev => {
+
+            const dataFormat = {
+                name: ``,
+                height: 0,
+                width: 0
+            }
+
+            const newWall = { ...prev }
+            let wallsArray = newWall.wallsArray
+            let objectsAmount = newWall.wallsArray[wall_index].wallObjectsAmount + 1
+            let objectsArray = newWall.wallsArray[wall_index].objectsArray
+
+            objectsArray = WallMethods.arrayExpansion(objectsArray, objectsAmount, dataFormat)
+
+            wallsArray[wall_index].wallObjectsAmount = objectsAmount
+            wallsArray[wall_index].objectsArray = objectsArray
+
+            return {
+                ...prev,
+                wallsArray: wallsArray
+            }
+        })
+    }
+
+    static decreaseObjectCount(setWalls, wall_index) {
+
+        setWalls(prev => {
+
+            const dataFormat = {
+                name: ``,
+                height: 0,
+                width: 0
+            }
+
+            const newWall = { ...prev }
+            let wallsArray = newWall.wallsArray
+            let objectsAmount = newWall.wallsArray[wall_index].wallObjectsAmount
+
+            objectsAmount - 1 < 0
+                ? objectsAmount = 0
+                : objectsAmount = objectsAmount - 1
+
+            let objectsArray = newWall.wallsArray[wall_index].objectsArray
+
+            objectsArray = WallMethods.arrayContraction(objectsArray, objectsAmount, dataFormat)
+
+            wallsArray[wall_index].wallObjectsAmount = objectsAmount
+            wallsArray[wall_index].objectsArray = objectsArray
+
+            return {
+                ...prev,
+                wallsArray: wallsArray
+            }
+        })
+    }
+
+    static deleteWallWidth(setWalls, wall_index) {
+
+        setWalls(prev => {
+
+            const newWall = {...prev}
+            newWall.wallsArray[wall_index].width = 0
+
+            return newWall
+        })
+    }
+
     static setWallObjectsAmount(setWalls, wall_index, objectsAmount) {
 
         if (!isNaN(objectsAmount))
@@ -418,8 +516,6 @@ export default class WallMethods {
                     pricesArray.push(Number(rawPriceArray[i]))
                 }
             }
-            console.log(cansArray)
-            console.log(pricesArray)
 
             //Sort cansArray without losing index correlation with pricesArray
             let tempVariable
@@ -427,29 +523,26 @@ export default class WallMethods {
             let swapCount
             let done = false
 
-            while(!done){
+            while (!done) {
                 swapCount = 0
-                for(i=1; i < cansArray.length; i++){
-                    if(cansArray[i - 1] < cansArray[i]){
-                        
+                for (i = 1; i < cansArray.length; i++) {
+                    if (cansArray[i - 1] < cansArray[i]) {
+
                         tempVariable = cansArray[i]
                         cansArray[i] = cansArray[i - 1]
                         cansArray[i - 1] = tempVariable
 
-                        tempVariable2 = pricesArray[i]                        
+                        tempVariable2 = pricesArray[i]
                         pricesArray[i] = pricesArray[i - 1]
                         pricesArray[i - 1] = tempVariable2
 
                         swapCount += 1
                     }
                 }
-                if(swapCount === 0){
+                if (swapCount === 0) {
                     done = true
                 }
             }
-
-            console.log(cansArray)
-            console.log(pricesArray)
 
             // Loops through cansArray and calculate how many cans its needed to paint the wall area
             let totalCans = ''

@@ -58,7 +58,11 @@ const inputStyles = StyleSheet.create({
         justifyContent: 'space-between',
         marginVertical: 1,
         paddingHorizontal: 3,
-        paddingBottom: 3,
+        paddingBottom: 1,
+    },
+    subContainer: {
+        display: 'flex',
+        flexDirection: 'row'
     },
     label: {
         textAlign: 'center',
@@ -69,12 +73,50 @@ const inputStyles = StyleSheet.create({
     input: {
         borderWidth: 1,
         borderRadius: 4,
-        fontSize: 15,
+        fontSize: 14,
         backgroundColor: '#EDE0D4',
         color: '#000',
         padding: 0,
         paddingHorizontal: 7,
-        width: 150,
+        width: 90,
         color: '#7F5539'
+    },
+    input2: {
+        borderWidth: 1,
+        borderRadius: 4,
+        fontSize: 14,
+        backgroundColor: '#EDE0D4',
+        color: '#000',
+        padding: 0,
+        paddingHorizontal: 7,
+        width: 132,
+        color: '#7F5539'
+    },
+    DeleteButton: {
+        backgroundColor: '#FF0000',
+        width: 40,
+        borderWidth: 1,
+        borderRadius: 5,
+        marginLeft: 2
+    },
+    DecreaseButton: {
+        backgroundColor: '#FF0000',
+        width: 40,
+        borderWidth: 1,
+        borderRadius: 5,
+        marginLeft: 2
+    },
+    IncreaseButton: {
+        backgroundColor: '#00FF00',
+        width: 40,
+        borderWidth: 1,
+        borderRadius: 5,
+        marginLeft: 2
+    },
+    ButtonText: {
+        alignSelf: 'center',
+        fontSize: 17,
+        fontWeight: '900',
+        color: '#000'
     }
 })
