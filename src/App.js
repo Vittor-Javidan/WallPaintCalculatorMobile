@@ -6,46 +6,21 @@ import {
     ScrollView
 } from 'react-native'
 
-import appConfig from './AppConfig'
+import { defaultData } from './defaultData'
 
 import Walls from './Components/Walls'
-import CalculationButton from './Components/CalculationButton'
+import Config from './Components/Config'
 import Output from './Components/Output'
 
 export const AppContext = React.createContext()
 
-function wallInit() {
-
-    const wallsArray = []
-    for (let i = 0; i < appConfig.WALLS_AMMOUNT; i++) {
-        wallsArray.push({
-            width: appConfig.WALL_WIDTH,
-            duplicates: appConfig.DUPLICATES_AMOUNT,
-            wallObjectsAmount: appConfig.WALLS_OBJECT_AMOUNT,
-            objectsArray: []
-        })
-    }
-    return wallsArray
-}
-
 export default function App() {
 
-    const [walls, setWalls] = React.useState({
-        height: appConfig.WALL_HEIGHT,
-        wallsAmount: appConfig.WALLS_AMMOUNT,
-        inkLayers: appConfig.INK_LAYERS,
-        inkEfficiency: appConfig.INK_EFFICIENCY,
-        cansString: appConfig.CANS_SIZES,
-        cansAmount: appConfig.CANS_AMOUNT_ARRAY,
-        cansPricesString: appConfig.CANS_PRICES_STRING,
-        pricesArray: appConfig.CANS_PRICES,
-        totalCans: appConfig.TOTAL_CANS,
-        wallsArray: wallInit(),
-    })
+    const [data, setData] = React.useState({ ...defaultData })
 
     const props = {
-        walls,
-        setWalls
+        data,
+        setData
     }
 
     return (
@@ -54,11 +29,11 @@ export default function App() {
                 <ScrollView style={styles.ScrollView}>
                     <View style={styles.AppBody}>
                         <Text style={styles.title}>
-                            Calculadora de latas de tinta
+                            Wall Paint Calculator
                         </Text>
                         <Walls />
-                        <CalculationButton/>
-                        <Output/>
+                        <Config />
+                        <Output />
                     </View>
                 </ScrollView>
             </View>

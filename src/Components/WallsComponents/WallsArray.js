@@ -8,17 +8,18 @@ import {
 
 import WallMethods from '../../Scripts/utilClasses/WallMethods'
 
-import WallForm from './WallForm'
+import WallForm from './WallArrayComponents/WallForm'
 
 export default function WallsArray (){
 
-    const { walls } = React.useContext(AppContext)
+    const { data } = React.useContext(AppContext)
     const inputsArray = []
 
-    for (let i = 0; i < WallMethods.getWallsAmount(walls); i++) {
+    const wallsAmount = Math.floor(Number(WallMethods.getWallsAmount(data)))
+    for (let wall_index = 0; wall_index < wallsAmount; wall_index++) {
 
         inputsArray.push(
-            <WallForm key={i} index={i}>Wall</WallForm>
+            <WallForm key={wall_index} index={wall_index}>Wall</WallForm>
         )
     }
 

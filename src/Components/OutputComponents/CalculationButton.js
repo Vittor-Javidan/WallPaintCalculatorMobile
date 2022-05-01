@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppContext } from '../App'
+import { AppContext } from '../../App'
 
 import {
     View,
@@ -8,20 +8,23 @@ import {
     StyleSheet
 } from 'react-native'
 
-import WallMethods from '../Scripts/utilClasses/WallMethods'
+import { ResultMethods } from '../../Scripts/utilClasses/WallMethods'
 
-export default function CalculationButton() {
+export default function CalculationButton({ status }) {
 
-    const { setWalls } = React.useContext(AppContext)
+    const { setData } = React.useContext(AppContext)
 
     return (
         <View style={styles.Container}>
-            <TouchableOpacity 
+            <TouchableOpacity
                 onPress={() => {
-                    WallMethods.calculateCans(setWalls)
-                    WallMethods.calculateTotalPrice(setWalls)
-                }} 
-                style={styles.Button}
+                    if(status === 'ok'){
+                        ResultMethods.setTotalWallArea(setData)
+                        ResultMethods.setTotalObjectArea(setData)
+                        ResultMethods.setTotalAreaToPaint(setData)
+                        ResultMethods.setTotalGallonsAndPrice(setData)
+                    }
+                }}
             >
                 <Text style={styles.Text}>clique para calcular</Text>
             </TouchableOpacity>
@@ -31,14 +34,12 @@ export default function CalculationButton() {
 
 const styles = StyleSheet.create({
     Container: {
+        alignSelf: 'center',
         marginTop: 2,
         width: '99%',
         borderWidth: 1,
         borderRadius: 5,
         backgroundColor: '#00F'
-    },
-    Button: {
-        
     },
     Text: {
         alignSelf: 'center',

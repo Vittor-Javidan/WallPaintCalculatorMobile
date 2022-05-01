@@ -1,37 +1,20 @@
 import React from 'react'
 import {
     View,
-    Text,
     StyleSheet
 } from 'react-native'
 
-import InkEfficiencyInput from './WallsComponents/InkEfficiencyInput'
-import InkLayersInput from './WallsComponents/InkLayersInput'
-import CansSizesInput from './WallsComponents/CansSizesInput'
-import CansPricesInput from './WallsComponents/CansPricesInput'
-import WallsHeightInput from './WallsComponents/WallsHeightInput'
-import WallsAmountInput from './WallsComponents/WallsAmountInput'
-
+import MeasureUnitConfig from './WallsComponents/MeasureUnitConfig'
+import WallConfig from './WallsComponents/WallConfig'
 import WallsArray from './WallsComponents/WallsArray'
 
 export default function Walls() {
 
     return (
         <View style={styles.Appform}>
-            <View style={styles.ConfigurationForm}>
-                <Text style={styles.ConfigurationTitle}>
-                    Configurações: 
-                </Text>
-                <View style={styles.ConfigurationInputs}>
-                    <CansSizesInput style={inputStyles}/>
-                    <CansPricesInput style={inputStyles}/>
-                    <InkEfficiencyInput style={inputStyles}/>
-                    <WallsHeightInput style={inputStyles}/>
-                    <InkLayersInput style={inputStyles}/>
-                    <WallsAmountInput style={inputStyles}/>
-                </View>
-            </View>
-            <WallsArray/>
+            <MeasureUnitConfig />
+            <WallConfig />
+            <WallsArray />
         </View>
     )
 }

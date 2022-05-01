@@ -1,81 +1,138 @@
-import WallMethods from '../utilClasses/WallMethods.js'
+import WallMethods, {
+    GallonsFormatMethods,
+    LitersFormatMethods
+} from '../utilClasses/WallMethods'
 
-function checkInkEfficiencyZero(walls_State, setStatus, wall_Index) {
-    if (WallMethods.getWallInkEfficiency(walls_State) <= 0)
-        return setStatus('AVISO: Gasto de tinta igual a zero')
+function checkDefaultHeight(data, setStatus, wall_index) {
+
+    const defaultHeight = WallMethods.getDefaultWallHeight(data)
+    if (defaultHeight < 0 || isNaN(defaultHeight))
+        return setStatus('defaultHeight must be a valid number')
 }
 
-function checkHeightZero(walls_State, setStatus, wall_Index) {
+function checkWallsAmount(data, setStatus, wall_index) {
 
-    if (WallMethods.getWallsHeight(walls_State) <= 0)
-        return setStatus('AVISO: Altura das paredes possui valor 0')
+    const wallAmount = WallMethods.getWallsAmount(data)
+    if (wallAmount < 1 || isNaN(wallAmount))
+        return setStatus('wallsAmount must be a valid number')
 }
 
-function checkLayersAmount(walls_State, setStatus, wall_Index) {
+function checkWallHeight(data, setStatus, wall_index) {
 
-    if (WallMethods.getWallsInkLayers(walls_State) < 1)
-        return setStatus('AVISO: valor de demãos é menor que 1')
+    const height = WallMethods.getWallHeight(data, wall_index)
+    if (height < 0 || isNaN(height))
+        return setStatus(`Wall ${wall_index + 1} height must be a valid number`)
 }
 
-function checkObjectsAmount(walls_State, setStatus, wall_Index) {
+function checkWallWidth(data, setStatus, wall_index) {
 
-    if (WallMethods.getWallObjectsAmount(walls_State, wall_Index) < 0)
-        return setStatus(`AVISO: Parede ${wall_Index + 1} possui uma quantidade negativa de objetos`)
+    const width = WallMethods.getWallWidth(data, wall_index)
+    if (width < 0 || isNaN(width))
+        return setStatus(`Wall ${wall_index + 1} width must be a valid number`)
 }
 
-function checkObjectsMinArea(walls_State, setStatus, wall_Index) {
+function checkWallDuplicates(data, setStatus, wall_index) {
 
-    for (let i = 0; i < WallMethods.getWallObjectsAmount(walls_State, wall_Index); i++)
-        if (WallMethods.getWallObjectHeight(walls_State, wall_Index, i) * WallMethods.getWallObjectWidth(walls_State, wall_Index, i) <= 0)
-            setStatus(`AVISO: objeto ${i + 1} da Parede ${wall_Index + 1} possui área zero`)
+    const duplicates = WallMethods.getWallDuplicates(data, wall_index)
+    if (duplicates < 0 || isNaN(duplicates))
+        return setStatus(`Wall ${wall_index + 1} duplicates must be a valid number`)
 }
 
-function checkMinWallArea(walls_State, setStatus, wall_Index) {
+function checkWallObjectsAmount(data, setStatus, wall_index) {
 
-    if (WallMethods.getWallArea(walls_State, wall_Index) <= 0)
-        return setStatus(`AVISO: Parede ${wall_Index + 1} não possui uma área válida`)
+    const objectsAmount = WallMethods.getObjectsAmount(data, wall_index)
+    if (objectsAmount < 0 || isNaN(objectsAmount))
+        return setStatus(`Wall ${wall_index + 1} objectsAmount must be a valid number`)
 }
 
-function checkWidthWallUsage(walls_State, setStatus, wall_Index) {
+function checkObjectsInfo(data, setStatus, wall_index) {
 
-    if (WallMethods.getWallWidth(walls_State, wall_Index) < WallMethods.getWallTotalObjectsWidth(walls_State, wall_Index))
-        return setStatus(`AVISO: largura da Parede ${wall_Index + 1} é menor que a soma das larguras de seus objetos`)
+    for (let object_index = 0; object_index < WallMethods.getObjectsAmount(data, wall_index); object_index++) {
+
+        const height = WallMethods.getObjectHeight(data, wall_index, object_index)
+        if (height < 0 || isNaN(height))
+            return setStatus(`Object ${object_index + 1} height on Wall ${wall_index + 1} must be a valid number`)
+
+        const width = WallMethods.getObjectWidth(data, wall_index, object_index)
+        if (width < 0 || isNaN(width))
+            return setStatus(`Object ${object_index + 1} width on Wall ${wall_index + 1} must be a valid number`)
+
+        const duplicates = WallMethods.getObjectDuplicates(data, wall_index, object_index)
+        if (duplicates < 1 || isNaN(duplicates))
+            return setStatus(`Object ${object_index + 1} duplicates on Wall ${wall_index + 1} must be a valid number`)
+    }
 }
 
-function checkHeightWallUsage(walls_State, setStatus, wall_Index) {
+function checkLitersUnitFormatInputs(data, setStatus, wall_index) {
 
-    for (let i = 0; i < WallMethods.getWallObjectsAmount(walls_State, wall_Index); i++)
-        if (WallMethods.getWallsHeight(walls_State) < WallMethods.getWallObjectHeight(walls_State, wall_Index, i))
-            return setStatus(`AVISO: Altura da Parede ${wall_Index + 1} é menor que a Altura do objeto ${i + 1}`)
+    const gallonsSizes = LitersFormatMethods.getGallonsSizes(data).split(';')
+    const gallonsRespectivePrices = LitersFormatMethods.getGallonsRespectivePrices(data).split(';')
+
+    //Check input amount
+    if (gallonsSizes.length !== gallonsRespectivePrices.length)
+        return setStatus('check if each gallonsSizes has a price, and if they are using ";" to distinguish each number')
+
+    //Checks if the numbers have a valid format
+    for (let i = 0; i < gallonsSizes.length; i++) {
+        if (isNaN(gallonsSizes[i]) || isNaN(gallonsRespectivePrices[i]))
+            return setStatus('check if each gallonsSizes and its prices has the follow number format: 000.00')
+        else if (gallonsSizes[i] < 0 || gallonsRespectivePrices[i] < 0)
+            return setStatus('check if each gallonsSizes and its prices have any negative number')
+    }
+
+    //Check if coatAmount have a valid format
+    const coatAmount = LitersFormatMethods.getCoatAmount(data)
+    if (coatAmount < 1 || isNaN(coatAmount))
+        return setStatus('check if coatAmount is a valid number')
+
+    //check if paintEfficiency
+    const paintEfficiency = LitersFormatMethods.getPaintEfficiency(data)
+    if (paintEfficiency < 0 || isNaN(paintEfficiency))
+        return setStatus('check if paintEfficiency is a valid number')
+
 }
 
-function checkPricesAndCansArraysLenght(walls_State, setStatus) {
+function checkGallonsUnitFormat(data, setStatus, wall_index) {
 
-    if (WallMethods.getCansAmountArrayLenght(walls_State) !== WallMethods.getPricesArrayLength(walls_State))
-        setStatus('AVISO: A quantidade de latas e seus preços precisa ser a mesma')
+    //Check if gallonPrice have a valid format
+    const gallonPrice = GallonsFormatMethods.getGallonPrice(data)
+    if (gallonPrice < 0 || isNaN(gallonPrice))
+        return setStatus('check if gallonPrice is a valid number')
+
+    //Check if coatAmount have a valid format
+    const coatAmount = GallonsFormatMethods.getCoatAmount(data)
+    if (coatAmount < 1 || isNaN(coatAmount))
+        return setStatus('check if coatAmount is a valid number')
+
+    //check if paintEfficiency have a valid format
+    const paintEfficiency = GallonsFormatMethods.getPaintEfficiency(data)
+    if (paintEfficiency < 0 || isNaN(paintEfficiency))
+        return setStatus('check if Coverage/gallon is a valid number')
 }
 
-const rulesArray = [ // Last array indexes has priority on status message display
+const rulesArray = [
 
-    checkInkEfficiencyZero,
-    checkPricesAndCansArraysLenght,
-    checkObjectsMinArea,
-    checkObjectsAmount,
-    checkLayersAmount,
-    checkHeightWallUsage,
-    checkWidthWallUsage,
-    checkMinWallArea,
-    checkHeightZero
+    checkGallonsUnitFormat,
+    checkLitersUnitFormatInputs,
+    checkObjectsInfo,
+    checkWallObjectsAmount,
+    checkWallDuplicates,
+    checkWallWidth,
+    checkWallHeight,
+    checkWallsAmount,
+    checkDefaultHeight,
 ]
 
-export default function verifyConditions(walls_State, setStatus) {
+export default function verifyConditions(data, setStatus) {
 
     setStatus('ok')
 
-    for (let i = 0; i < WallMethods.getWallsAmount(walls_State); i++) {
+    for (let wall_index = 0; wall_index < WallMethods.getWallsAmount(data); wall_index++) {
 
         rulesArray.forEach(element => {
-            element(walls_State, setStatus, i)
+            element(data, setStatus, wall_index)
         });
     }
+
+    console.log('verifyDone')
 }

@@ -1,22 +1,22 @@
 import React from 'react'
-import { AppContext } from '../../../App'
+import { AppContext } from '../../../../App'
 
 import {
     View,
-    Text,
     StyleSheet
 } from 'react-native'
 
-import WallMethods from '../../../Scripts/utilClasses/WallMethods'
+import WallMethods from '../../../../Scripts/utilClasses/WallMethods'
 
-import ObjectForm from './ObjectForm'
+import ObjectForm from './ObjectsArrayForm/ObjectForm'
 
 export default function ObjectsArray({ index }) {
 
-    const { walls } = React.useContext(AppContext)
+    const { data } = React.useContext(AppContext)
     const inputsArray = []
 
-    for (let i = 0; i < WallMethods.getWallObjectsAmount(walls, index); i++) {
+    const objectsAmount = Math.floor(Number(WallMethods.getObjectsAmount(data, index)))
+    for (let i = 0; i < objectsAmount; i++) {
 
         inputsArray.push(
             <ObjectForm key={i} index_i={index} index_j={i}/>

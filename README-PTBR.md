@@ -73,13 +73,12 @@ diferentes.
 	- implemetar customização do volume de latas
 	- implementar customização do preço de cada lata
 	- escolher nomes melhores de classe para cada div no JSX de cada componente
+	- adicionar botões de incrementar, diminuir e deletar de acordo com a necessidade de cada input
+	- consertar o bug de preços não sendo respectivos as latas
+	- adicionar customização de altura individual nos formulário de cada parede
 
 - ### A fazer:
 
-	- adicionar botões de incrementar, diminuir e deletar de acordo com a necessidade de cada input
-	- adicionar um togle para esconder ou mostrar objetos
-	- consertar o bug de preços não sendo respectivos as latas
-	- adicionar customização de altura individual nos formulário de cada parede
+	- adicionar um togle para esconder ou mostrar objetos	
 	- Adicionar limitar e adicionar inputs para o usuário definir qual o valore de paredes máximas ou objetos máximos caso ele deseje expandir o limite padrão
-	- Adicionar um getObjectArea no WallMethods
 	- adicionar opção de idioma (ENG, PT-BR)

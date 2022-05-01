@@ -1,147 +1,146 @@
-import appConfig from '../../AppConfig.js'
+import {
+    defaultWall,
+    defaultObject
+} from "../../defaultData"
 
 export default class WallMethods {
 
-    static getWall(walls_State, wall_index) { return walls_State.wallsArray[wall_index] }
-    static getWallsArray(walls_State) { return walls_State.wallsArray }
-    static getWallsArrayLength(walls_State) { return walls_State.wallsArray.length }
-    static getWallsInkLayers(walls_State) { return walls_State.inkLayers }
-    static getWallsAmount(walls_State) { return walls_State.wallsAmount }
-    static getWallDuplicatesAmount(walls_State, wall_index) { return walls_State.wallsArray[wall_index].duplicates }
-    static getWallsHeight(walls_State) { return walls_State.height }
-    static getWallWidth(walls_State, wall_index) { return walls_State.wallsArray[wall_index].width }
-    static getWallInkEfficiency(walls_State) { return walls_State.inkEfficiency }
-
-    static getWallObjectsAmount(walls_State, wall_index) { return walls_State.wallsArray[wall_index].wallObjectsAmount }
-    static getWallObjectsArray(walls_State, wall_index) { return walls_State.wallsArray[wall_index].objectsArray }
-    static getWallObjectsArrayLenght(walls_State, wall_index) { return walls_State.wallsArray[wall_index].objectsArray.length }
-    static getWallObjectWidth(walls_State, wall_Index, object_index) { return walls_State.wallsArray[wall_Index].objectsArray[object_index].width }
-    static getWallObjectHeight(walls_State, wall_Index, object_index) { return walls_State.wallsArray[wall_Index].objectsArray[object_index].height }
-    static getWallObjectName(walls_State, wall_Index, object_index) { return walls_State.wallsArray[wall_Index].objectsArray[object_index].name }
-
-    static getCansString(walls_State) { return walls_State.cansString }
-    static getCansPriceString(walls_State) { return walls_State.cansPricesString }
-    static getCansAmountArray(walls_State) { return walls_State.cansAmount }
-    static getCansAmountArrayLenght(walls_State) { return walls_State.cansAmount.length }
-    static getTotalCans(walls_State) { return walls_State.totalCans }
-    static getTotalPrice(walls_State) { return walls_State.totalPrice }
-    static getPricesArrayLength(walls_State) { return walls_State.pricesArray.length }
-
-    static setWallsHeight(setWalls, heightValue) {
-
-        if (!isNaN(heightValue))
-            setWalls(prev => {
-
-                const newWall = { ...prev }
-                newWall.height = heightValue
-
-                return newWall
-            })
-    }
-
-    static setWallWidth(setWalls, wall_index, widthValue) {
-
-        if (!isNaN(widthValue))
-            setWalls(prev => {
-
-                const newWall = { ...prev }
-                newWall.wallsArray[wall_index].width = widthValue
-
-                return newWall
-            })
-    }
-
-    static setWallsInkLayers(setWalls, layersAmount) {
-
-        if (!isNaN(layersAmount))
-            setWalls(prev => {
-
-                const newWall = { ...prev }
-                newWall.inkLayers = Number(layersAmount)
-
-                return newWall
-            })
-    }
-
-    static setWallsInkEfficiency(setWalls, efficiencyValue) {
-
-        if (!isNaN(efficiencyValue))
-            setWalls(prev => {
-
-                const newWall = { ...prev }
-                newWall.inkEfficiency = efficiencyValue
-
-                return newWall
-            })
-    }
-
-    static setWallObjectWidth(setWalls, wall_index, object_index, widthValue) {
-
-        if (!isNaN(widthValue))
-            setWalls(prev => {
-
-                const newWalls = { ...prev }
-                newWalls.wallsArray[wall_index].objectsArray[object_index].width = widthValue
-
-                return newWalls
-            })
-    }
-
-    static setWallDuplicatesAmount(setWalls, wall_index, duplicatesAmount) {
-
-        if (!isNaN(duplicatesAmount))
-            setWalls(prev => {
-
-                const newWalls = { ...prev }
-                newWalls.wallsArray[wall_index].duplicates = Number(duplicatesAmount)
-
-                return newWalls
-            })
-    }
-
-    static setWallObjectHeight(setWalls, wall_index, object_index, heightValue) {
-
-
-        if (!isNaN(heightValue))
-            setWalls(prev => {
-
-                const newWalls = { ...prev }
-                newWalls.wallsArray[wall_index].objectsArray[object_index].height = heightValue
-
-                return newWalls
-            })
-    }
-
-    static setWallObjectName(setWalls, wall_index, object_index, nameString) {
-
-        setWalls(prev => {
-
-            const newWalls = { ...prev }
-            newWalls.wallsArray[wall_index].objectsArray[object_index].name = String(nameString)
-
-            return newWalls
+    static getDefaultWallHeight(data) { return data.defaultWallHeight }
+    static setDefaultWallHeight(setData, height) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.defaultWallHeight = height
+            return newData
         })
     }
 
-    static setCansString(setWalls, cansString) {
+    static getWallsAmount(data) { return data.wallsAmount }
+    static setWallsAmount(setData, amount) {
+        setData(prev => {
+            const newData = { ...prev }
 
-        setWalls(prev => {
+            const wallFormat = {
+                ...defaultWall,
+                height: WallMethods.getDefaultWallHeight(newData)
+            }
 
-            const newWall = { ...prev }
-            newWall.cansString = cansString
+            //Handles expansion and retraction of wallsArray            
+            let wallsArray = newData.wallsArray
+            amount > wallsArray.length
+                ? wallsArray = WallMethods.arrayExpansion(wallsArray, amount, wallFormat)
+                : wallsArray = WallMethods.arrayContraction(wallsArray, amount)
 
-            return newWall
+            newData.wallsAmount = amount
+            newData.wallsArray = wallsArray
+            return newData
         })
     }
 
-    static setCansPricesString(setWalls, cansPricesString) {
+    static getWallName(data, wall_index) { return data.wallsArray[wall_index].wallName }
+    static setWallName(setData, wall_index, name) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].wallName = name
+            return newData
+        })
+    }
 
-        setWalls(prev => {
+    static getWallHeight(data, wall_index) { return data.wallsArray[wall_index].height }
+    static setWallHeight(setData, wall_index, height) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].height = height
+            return newData
+        })
+    }
 
-            const newWall = { ...prev }
-            newWall.cansPricesString = cansPricesString
+    static getWallWidth(data, wall_index) { return data.wallsArray[wall_index].width }
+    static setWallWidth(setData, wall_index, width) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].width = width
+            return newData
+        })
+    }
 
-            return newWall
+    static getWallDuplicates(data, wall_index) { return data.wallsArray[wall_index].duplicates }
+    static setWallDuplicates(setData, wall_index, amount) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].duplicates = amount
+            return newData
+        })
+    }
+
+    static getObjectsAmount(data, wall_index) { return data.wallsArray[wall_index].objectsAmount }
+    static setObjectsAmount(setData, wall_index, amount) {
+        setData(prev => {
+            const newData = { ...prev }
+
+            //Handles expansion and retraction of objectsArray            
+            let objectsArray = newData.wallsArray[wall_index].objectsArray
+            amount > objectsArray.length
+                ? objectsArray = WallMethods.arrayExpansion(objectsArray, amount, defaultObject)
+                : objectsArray = WallMethods.arrayContraction(objectsArray, amount)
+
+            newData.wallsArray[wall_index].objectsAmount = amount
+            newData.wallsArray[wall_index].objectsArray = objectsArray
+
+            return newData
+        })
+    }
+
+    static getObjectName(data, wall_index, object_index) { return data.wallsArray[wall_index].objectsArray[object_index].objectName }
+    static setObjectName(setData, wall_index, object_index, name) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].objectsArray[object_index].objectName = name
+            return newData
+        })
+    }
+
+    static getObjectHeight(data, wall_index, object_index) { return data.wallsArray[wall_index].objectsArray[object_index].height }
+    static setObjectHeight(setData, wall_index, object_index, height) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].objectsArray[object_index].height = height
+            return newData
+        })
+    }
+
+    static getObjectWidth(data, wall_index, object_index) { return data.wallsArray[wall_index].objectsArray[object_index].width }
+    static setObjectWidth(setData, wall_index, object_index, width) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].objectsArray[object_index].width = width
+            return newData
+        })
+    }
+
+    static getObjectDuplicates(data, wall_index, object_index) { return data.wallsArray[wall_index].objectsArray[object_index].duplicates }
+    static setObjectDuplicates(setData, wall_index, object_index, amount) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].objectsArray[object_index].duplicates = amount
+            return newData
+        })
+    }
+
+    static getLenghtUnit(data) { return data.config.lenghtUnit }
+    static setLenghtUnit(setData, LENGHT_UNIT) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.lenghtUnit = LENGHT_UNIT
+            return newData
+        })
+    }
+
+    static getGallonUnity(data) { return data.config.gallonUnity }
+    static setGallonUnity(setData, GALLON_UNIT) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.gallonUnity = GALLON_UNIT
+            return newData
         })
     }
 
@@ -151,7 +150,7 @@ export default class WallMethods {
 
         let diff = arraySize - newArray.length
         for (let i = 0; i < diff; i++)
-            newArray.push(data)
+            newArray.push({ ...data })
 
         return newArray
     }
@@ -166,431 +165,303 @@ export default class WallMethods {
 
         return newArray
     }
+}
 
-    static setWallsAmount(setWalls, wallsAmount) {
+export class LitersFormatMethods {
 
-        if (!isNaN(wallsAmount) && Number(wallsAmount) >= 0)
-            setWalls(prev => {
-
-                wallsAmount = Number(wallsAmount)
-
-                const dataFormat = {
-                    width: appConfig.WALL_WIDTH,
-                    duplicates: appConfig.DUPLICATES_AMOUNT,
-                    wallObjectsAmount: appConfig.WALLS_OBJECT_AMOUNT,
-                    objectsArray: []
-                }
-
-                let wallsArray = prev.wallsArray
-
-                wallsAmount > wallsArray.length
-                    ? wallsArray = WallMethods.arrayExpansion(wallsArray, wallsAmount, dataFormat)
-                    : wallsArray = WallMethods.arrayContraction(wallsArray, wallsAmount)
-
-                return {
-                    ...prev,
-                    wallsAmount: wallsAmount,
-                    wallsArray: wallsArray
-                }
-            })
-    }
-
-    static deleteCansSizes(setWalls) {
-
-        setWalls(prev => {
-
-            return {
-                ...prev,
-                cansString: ''
-            }
+    static getGallonsSizes(data) { return data.config.litersUnitFormat.gallonsSizes }
+    static setGallonsSizes(setData, sizesString) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.litersUnitFormat.gallonsSizes = sizesString
+            return newData
         })
     }
 
-    static deleteCansPrices(setWalls) {
-
-        setWalls(prev => {
-
-            return {
-                ...prev,
-                cansPricesString: ''
-            }
+    static getGallonsRespectivePrices(data) { return data.config.litersUnitFormat.gallonsRespectivePrices }
+    static setGallonsRespectivePrices(setData, pricesString) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.litersUnitFormat.gallonsRespectivePrices = pricesString
+            return newData
         })
     }
 
-    static deleteInkEfficiency(setWalls) {
-
-        setWalls(prev => {
-
-            return {
-                ...prev,
-                inkEfficiency: 0
-            }
+    static getCoatAmount(data) { return data.config.litersUnitFormat.coatAmount }
+    static setCoatAmount(setData, amount) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.litersUnitFormat.coatAmount = amount
+            return newData
         })
     }
 
-    static deleteHeight(setWalls) {
+    static getPaintEfficiency(data) { return data.config.litersUnitFormat.paintEfficiency }
+    static setPaintEfficiency(setData, value) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.litersUnitFormat.paintEfficiency = value
+            return newData
+        })
+    }
+}
 
-        setWalls(prev => {
+export class GallonsFormatMethods {
 
-            return {
-                ...prev,
-                height: 0
-            }
+    static getGallonSize(data) { return data.config.gallonsUnitFormat.gallonSize }
+    static setGallonSize(setData, value) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.gallonsUnitFormat.gallonSize = value
+            return newData
         })
     }
 
-    static increaseInkLayerCount(setWalls) {
-
-        setWalls(prev => {
-
-            return {
-                ...prev,
-                inkLayers: prev.inkLayers + 1
-            }
+    static getGallonPrice(data) { return data.config.gallonsUnitFormat.gallonPrice }
+    static setGallonPrice(setData, value) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.gallonsUnitFormat.gallonPrice = value
+            return newData
         })
     }
 
-    static decreaseInkLayerCount(setWalls) {
-
-        setWalls(prev => {
-
-            let inkLayers = prev.inkLayers
-
-            if (inkLayers > 0)
-                inkLayers -= 1
-
-            return {
-                ...prev,
-                inkLayers: inkLayers
-            }
+    static getCoatAmount(data) { return data.config.gallonsUnitFormat.coatAmount }
+    static setCoatAmount(setData, amount) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.gallonsUnitFormat.coatAmount = amount
+            return newData
         })
     }
 
-    static increaseWallCount(setWalls) {
+    static getPaintEfficiency(data) { return data.config.gallonsUnitFormat.paintEfficiency }
+    static setPaintEfficiency(setData, value) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.config.gallonsUnitFormat.paintEfficiency = value
+            return newData
+        })
+    }
+}
 
-        setWalls(prev => {
+export class ResultMethods {
 
-            let wallsAmount = prev.wallsAmount + 1
+    static getTotalWallArea(data) { return data.results.totalWallArea }
+    static setTotalWallArea(setData) {
+        setData(prev => {
 
-            const dataFormat = {
-                width: appConfig.WALL_WIDTH,
-                duplicates: appConfig.DUPLICATES_AMOUNT,
-                wallObjectsAmount: appConfig.WALLS_OBJECT_AMOUNT,
-                objectsArray: []
+            const newData = { ...prev }
+
+            let totalWallArea = 0
+
+            let wallAmount = Number(WallMethods.getWallsAmount(newData))
+            for (let wall_index = 0; wall_index < wallAmount; wall_index++) {
+
+                let wallHeight = Number(WallMethods.getWallHeight(newData, wall_index))
+                let wallWidth = Number(WallMethods.getWallWidth(newData, wall_index))
+                let wallDuplicates = Number(WallMethods.getWallDuplicates(newData, wall_index))
+
+                let wallArea = wallWidth * wallHeight
+                totalWallArea += wallArea * wallDuplicates
             }
 
-            let wallsArray = prev.wallsArray
-            wallsArray = WallMethods.arrayExpansion(wallsArray, wallsAmount, dataFormat)
-
-            return {
-                ...prev,
-                wallsAmount: wallsAmount,
-                wallsArray: wallsArray
-            }
+            newData.results.totalWallArea = String(totalWallArea)
+            return newData
         })
     }
 
-    static decreaseWallCount(setWalls) {
+    static getTotalObjectArea(data) { return data.results.totalObjectArea }
+    static setTotalObjectArea(setData) {
+        setData(prev => {
 
-        setWalls(prev => {
+            const newData = { ...prev }
 
-            let wallsAmount
-            prev.wallsAmount - 1 < 0
-                ? wallsAmount = 0
-                : wallsAmount = prev.wallsAmount - 1
+            let totalObjectArea = 0
 
-            let wallsArray = prev.wallsArray
-            wallsArray = WallMethods.arrayContraction(wallsArray, wallsAmount)
+            let wallAmount = Number(WallMethods.getWallsAmount(newData))
+            for (let wall_index = 0; wall_index < wallAmount; wall_index++) {
 
-            return {
-                ...prev,
-                wallsAmount: wallsAmount,
-                wallsArray: wallsArray
-            }
-        })
-    }
+                let objectsAmount = Number(WallMethods.getObjectsAmount(newData, wall_index))
+                for (let object_index = 0; object_index < objectsAmount; object_index++) {
 
-    static increaseWallDuplicateCount(setWalls, wall_index) {
+                    let objectHeight = Number(WallMethods.getObjectHeight(newData, wall_index, object_index))
+                    let objectWidth = Number(WallMethods.getObjectWidth(newData, wall_index, object_index))
+                    let objectDuplicates = Number(WallMethods.getObjectDuplicates(newData, wall_index, object_index))
+                    let wallDuplicates = Number(WallMethods.getWallDuplicates(newData, wall_index))
 
-        setWalls (prev => {
-
-            const newWall = { ...prev }
-            newWall.wallsArray[wall_index].duplicates += 1
-    
-            return newWall
-        })
-    }
-
-    static decreaseWallDuplicateCount(setWalls, wall_index) {
-
-        setWalls (prev => {
-
-            const newWall = { ...prev }
-            let duplicates = newWall.wallsArray[wall_index].duplicates
-
-            duplicates - 1 < 1
-                ? duplicates = 1
-                : duplicates = duplicates - 1
-
-            newWall.wallsArray[wall_index].duplicates = duplicates
-    
-            return newWall
-        })
-    }
-
-    static increaseObjectCount(setWalls, wall_index) {
-
-        setWalls(prev => {
-
-            const dataFormat = {
-                name: ``,
-                height: 0,
-                width: 0
-            }
-
-            const newWall = { ...prev }
-            let wallsArray = newWall.wallsArray
-            let objectsAmount = newWall.wallsArray[wall_index].wallObjectsAmount + 1
-            let objectsArray = newWall.wallsArray[wall_index].objectsArray
-
-            objectsArray = WallMethods.arrayExpansion(objectsArray, objectsAmount, dataFormat)
-
-            wallsArray[wall_index].wallObjectsAmount = objectsAmount
-            wallsArray[wall_index].objectsArray = objectsArray
-
-            return {
-                ...prev,
-                wallsArray: wallsArray
-            }
-        })
-    }
-
-    static decreaseObjectCount(setWalls, wall_index) {
-
-        setWalls(prev => {
-
-            const dataFormat = {
-                name: ``,
-                height: 0,
-                width: 0
-            }
-
-            const newWall = { ...prev }
-            let wallsArray = newWall.wallsArray
-            let objectsAmount = newWall.wallsArray[wall_index].wallObjectsAmount
-
-            objectsAmount - 1 < 0
-                ? objectsAmount = 0
-                : objectsAmount = objectsAmount - 1
-
-            let objectsArray = newWall.wallsArray[wall_index].objectsArray
-
-            objectsArray = WallMethods.arrayContraction(objectsArray, objectsAmount, dataFormat)
-
-            wallsArray[wall_index].wallObjectsAmount = objectsAmount
-            wallsArray[wall_index].objectsArray = objectsArray
-
-            return {
-                ...prev,
-                wallsArray: wallsArray
-            }
-        })
-    }
-
-    static deleteWallWidth(setWalls, wall_index) {
-
-        setWalls(prev => {
-
-            const newWall = {...prev}
-            newWall.wallsArray[wall_index].width = 0
-
-            return newWall
-        })
-    }
-
-    static setWallObjectsAmount(setWalls, wall_index, objectsAmount) {
-
-        if (!isNaN(objectsAmount))
-            setWalls(prev => {
-
-                objectsAmount = Number(objectsAmount)
-
-                const dataFormat = {
-                    name: ``,
-                    height: 0,
-                    width: 0
-                }
-
-                const newWall = { ...prev }
-                let wallsArray = newWall.wallsArray
-                let objectsArray = newWall.wallsArray[wall_index].objectsArray
-                const objectsArrayLength = objectsArray.length
-
-                objectsAmount > objectsArrayLength
-                    ? objectsArray = WallMethods.arrayExpansion(objectsArray, objectsAmount, dataFormat)
-                    : objectsArray = WallMethods.arrayContraction(objectsArray, objectsAmount)
-
-                wallsArray[wall_index].wallObjectsAmount = objectsAmount
-                wallsArray[wall_index].objectsArray = objectsArray
-
-                return {
-                    ...prev,
-                    wallsArray: wallsArray
-                }
-            })
-    }
-
-    static getWallTotalObjectsWidth(walls_State, wall_index) {
-
-        let totalObjectsWidth = 0
-        for (let i = 0; i < WallMethods.getWallObjectsArrayLenght(walls_State, wall_index); i++) {
-
-            let objectWidth = Number(WallMethods.getWallObjectWidth(walls_State, wall_index, i))
-            totalObjectsWidth += objectWidth
-        }
-        return totalObjectsWidth
-    }
-
-    static getWallArea(walls_State, wall_index) {
-        let wallWidth = Number(WallMethods.getWallWidth(walls_State, wall_index))
-        let wallHeight = Number(WallMethods.getWallsHeight(walls_State))
-        return wallWidth * wallHeight
-    }
-
-    static getTotalWallArea(walls_State) {
-
-        let totalArea = 0
-        for (let i = 0; i < WallMethods.getWallsAmount(walls_State); i++) {
-
-            let wallArea = WallMethods.getWallArea(walls_State, i)
-            let wallDuplicates = Number(WallMethods.getWallDuplicatesAmount(walls_State, i))
-            totalArea += wallArea * wallDuplicates
-        }
-        return totalArea
-    }
-
-    static getObjectArea(walls_State, wall_index, object_index) {
-        let objectHeight = Number(WallMethods.getWallObjectHeight(walls_State, wall_index, object_index))
-        let objectWidth = Number(WallMethods.getWallObjectWidth(walls_State, wall_index, object_index))
-        return objectWidth * objectHeight
-    }
-
-    static getTotalObjectArea(walls_State) {
-
-        let totalObjectsArea = 0
-
-        for (let i = 0; i < WallMethods.getWallsAmount(walls_State); i++) {
-            for (let j = 0; j < WallMethods.getWallObjectsAmount(walls_State, i); j++) {
-
-                let objectArea = WallMethods.getObjectArea(walls_State, i, j)
-                let wallDuplicates = Number(WallMethods.getWallDuplicatesAmount(walls_State, i))
-                totalObjectsArea += objectArea * wallDuplicates
-            }
-        }
-
-        return totalObjectsArea
-    }
-
-    static getTotalAreaToPaint(walls_State) {
-
-        let totalWallArea = WallMethods.getTotalWallArea(walls_State)
-        let totalObjectArea = WallMethods.getTotalObjectArea(walls_State)
-        return totalWallArea - totalObjectArea
-    }
-
-    static calculateCans(setWalls) {
-
-        setWalls(prev => {
-
-            // Converts the cansString and cansPricesString into a Number arrays, removing any invalid element
-            const rawCanArray = prev.cansString.split(';')
-            const rawPriceArray = prev.cansPricesString.split(';')
-            let cansArray = []
-            let pricesArray = []
-            if (cansArray.length !== pricesArray.length)
-                return { ...prev }
-
-            for (let i = 0; i < rawCanArray.length; i++) {
-                if (!isNaN(rawCanArray[i]) && !isNaN(rawPriceArray[i])) {
-                    cansArray.push(Number(rawCanArray[i]))
-                    pricesArray.push(Number(rawPriceArray[i]))
+                    let objectArea = objectWidth * objectHeight
+                    totalObjectArea += objectArea * objectDuplicates * wallDuplicates
                 }
             }
 
-            //Sort cansArray without losing index correlation with pricesArray
-            let tempVariable
-            let tempVariable2
-            let swapCount
-            let done = false
+            newData.results.totalObjectArea = String(totalObjectArea)
+            return newData
+        })
+    }
 
-            while (!done) {
-                swapCount = 0
-                for (i = 1; i < cansArray.length; i++) {
-                    if (cansArray[i - 1] < cansArray[i]) {
+    static getTotalAreaToPaint(data) { return data.results.totalAreaToPaint }
+    static setTotalAreaToPaint(setData) {
+        setData(prev => {
 
-                        tempVariable = cansArray[i]
-                        cansArray[i] = cansArray[i - 1]
-                        cansArray[i - 1] = tempVariable
+            const newData = { ...prev }
 
-                        tempVariable2 = pricesArray[i]
-                        pricesArray[i] = pricesArray[i - 1]
-                        pricesArray[i - 1] = tempVariable2
+            let totalWallArea = Number(ResultMethods.getTotalWallArea(newData))
+            let totalObjectArea = Number(ResultMethods.getTotalObjectArea(newData))
 
-                        swapCount += 1
+            newData.results.totalAreaToPaint = String(totalWallArea - totalObjectArea)
+            return newData
+        })
+    }
+
+    static getResultsTime(data) { return data.results.time }
+    static getTotalGallons(data) { return data.results.totalGallons }
+    static getTotalPrice(data) { return data.results.totalPrice }
+    static setTotalGallonsAndPrice(setData) {
+        setData(prev => {
+
+            const newData = { ...prev }
+
+            if (newData.config.gallonUnity === 'gallons') {
+
+                // set the amount of gallons
+                const coatAmount = Number(GallonsFormatMethods.getCoatAmount(newData))
+                const paintEfficiency = Number(GallonsFormatMethods.getPaintEfficiency(newData))
+                const areaToPaint = Number(ResultMethods.getTotalAreaToPaint(newData))
+                let totalGallons
+
+                let gallons = Math.ceil(
+                    (areaToPaint / paintEfficiency) * coatAmount
+                )
+
+                gallons > 1
+                    ? totalGallons = `${gallons} gallons`
+                    : totalGallons = `${gallons} gallon`
+
+                if (!gallons)
+                    totalGallons = 'No gallons'
+                
+                newData.results.totalGallons = totalGallons
+                //===========================================================================
+
+                //set result time
+                const date = new Date()
+                const hour = date.getHours()
+                const minutes = date.getMinutes()
+                const seconds = date.getSeconds()
+                newData.results.time = `${hour}:${minutes}:${seconds}`
+                //===================================================
+
+                // set the price
+                const gallonPrice = Number(GallonsFormatMethods.getGallonPrice(newData))
+                const totalPrice = gallonPrice * gallons
+                newData.results.totalPrice = String(totalPrice)
+                //=============================================
+
+                return newData
+
+            } else if (newData.config.gallonUnity === 'L') {
+
+                let areaToPaint = Number(ResultMethods.getTotalAreaToPaint(newData))
+                let totalGallons = ''
+                let totalPrice = 0
+                
+                let gallonsSizes = LitersFormatMethods.getGallonsSizes(newData).split(';')
+                let gallonsRespectivePrices = LitersFormatMethods.getGallonsRespectivePrices(newData).split(';')
+
+                let gallonsSizesNumbers = []
+                let gallonPricesNumbers = []
+
+                // Converts the gallonsSizes and gallonsRespectivePrices into a Number arrays, removing any invalid element
+                for (let i = 0; i < gallonsSizes.length; i++) {
+                    if (!isNaN(gallonsSizes[i]) && !isNaN(gallonsRespectivePrices[i])) {
+                        gallonsSizesNumbers.push(Number(gallonsSizes[i]))
+                        gallonPricesNumbers.push(Number(gallonsRespectivePrices[i]))
                     }
                 }
-                if (swapCount === 0) {
-                    done = true
+                //==========================================================================================================
+
+                //Sort gallonsSizesNumbers without losing index correlation with gallonPricesNumbers
+                let tempVariable
+                let swapCount
+                let done = false
+
+                while (!done) {
+                    swapCount = 0
+                    for (let i = 1; i < gallonsSizesNumbers.length; i++) {
+                        if (gallonsSizesNumbers[i - 1] < gallonsSizesNumbers[i]) {
+
+                            tempVariable = gallonsSizesNumbers[i]
+                            gallonsSizesNumbers[i] = gallonsSizesNumbers[i - 1]
+                            gallonsSizesNumbers[i - 1] = tempVariable
+
+                            tempVariable = gallonPricesNumbers[i]
+                            gallonPricesNumbers[i] = gallonPricesNumbers[i - 1]
+                            gallonPricesNumbers[i - 1] = tempVariable
+
+                            swapCount += 1
+                        }
+                    }
+                    if (swapCount === 0) {
+                        done = true
+                    }
                 }
-            }
+                //=================================================================================
 
-            // Loops through cansArray and calculate how many cans its needed to paint the wall area
-            let totalCans = ''
-            let areaToPaint = WallMethods.getTotalAreaToPaint(prev) * prev.inkLayers
-            const cansAmountArray = []
-            for (let i = 0; i < cansArray.length; i++) {
+                // Loops through gallonsSizes and calculate how many gallons its needed to paint the wall area
+                const coatAmount = Number(LitersFormatMethods.getCoatAmount(newData))
+                const paintEfficiency = Number(LitersFormatMethods.getPaintEfficiency(newData))
 
-                const areaPerCan = cansArray[i] * Number(WallMethods.getWallInkEfficiency(prev))
+                let areaPerGallon = gallonsSizesNumbers.map(gallon => gallon * paintEfficiency)
+                areaToPaint = areaToPaint * coatAmount
 
-                if (areaToPaint / areaPerCan >= 0 && areaToPaint !== 0) {
+                for (let gallon_index = 0; gallon_index < gallonsSizesNumbers.length; gallon_index++) {
 
-                    let cans = 0
-                    i !== cansArray.length - 1
-                        ? cans = Math.floor(areaToPaint / areaPerCan)
-                        : cans = Math.ceil(areaToPaint / areaPerCan)
+                    let gallons = 0
 
-                    areaToPaint = areaToPaint - areaPerCan * cans
-                    cansAmountArray.push(cans)
+                    if (areaToPaint / areaPerGallon[gallon_index] >= 1 && gallon_index !== gallonsSizesNumbers.length - 1) {
 
-                    totalCans += `${cans} latas de ${cansArray[i]}L / `
-                } else {
-                    cansAmountArray.push(0)
-                }
-            }
+                        gallons = Math.floor(
+                            (areaToPaint / areaPerGallon[gallon_index])
+                        )
 
-            return {
-                ...prev,
-                cansAmount: cansAmountArray,
-                pricesArray: pricesArray,
-                totalCans: totalCans
-            }
-        })
-    }
+                        if (gallons > 0) {
+                            areaToPaint -= areaPerGallon[gallon_index] * gallons
+                            totalGallons += `${gallons} gallons of ${gallonsSizesNumbers[gallon_index]}L / `
+                            totalPrice += gallonPricesNumbers[gallon_index] * gallons
+                        }
 
-    static calculateTotalPrice(setWalls) {
+                    } else if (areaToPaint / areaPerGallon[gallon_index] > 0 && gallon_index === gallonsSizesNumbers.length - 1) {
 
-        setWalls(prev => {
+                        gallons = Math.ceil(
+                            (areaToPaint / areaPerGallon[gallon_index])
+                        )
 
-            let totalPrice = 0
-
-            if (prev.pricesArray.length === prev.cansAmount.length)
-                for (let i = 0; i < prev.cansAmount.length; i++) {
-                    totalPrice += prev.pricesArray[i] * prev.cansAmount[i]
+                        areaToPaint -= areaPerGallon[gallon_index] * gallons
+                        totalGallons += `${gallons} gallons of ${gallonsSizesNumbers[gallon_index]}L / `
+                        totalPrice += gallonPricesNumbers[gallon_index] * gallons
+                    }
                 }
 
-            return {
-                ...prev,
-                totalPrice: totalPrice
+                if (totalGallons === '')
+                    totalGallons = 'No gallons'
+                
+                newData.results.totalGallons = totalGallons
+                newData.results.totalPrice = `${totalPrice} bucks`
+                //===============================================================================================
+
+                //set result time
+                const date = new Date()
+                const hour = date.getHours()
+                const minutes = date.getMinutes()
+                const seconds = date.getSeconds()
+                newData.results.time = `${hour}:${minutes}:${seconds}`
+                //===================================================
+
+                
+                
+
+                return newData
             }
         })
     }
