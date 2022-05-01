@@ -33,6 +33,8 @@ const defaultWall = {
 
 const defaultData = {
 
+    maxWallsAmount: '10',
+    maxWallObjectsAmout: '10',
     defaultWallHeight: '0',
     wallsAmount: '0', // just put 0 or 1 values
     wallsArray: [

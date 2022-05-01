@@ -22,6 +22,7 @@ export default function WallForm({ index }) {
 
     const { data } = React.useContext(AppContext)
     const showObjects = WallMethods.getShowObjects(data, index)
+    const maxWallObjectAmount = WallMethods.getMaxWallObjectsAmout(data)
 
     return (
         <View style={styles.Form}>
@@ -33,8 +34,12 @@ export default function WallForm({ index }) {
                 <WidthInput index={index} />
                 <HeightInput index={index} />
                 <WallDuplicates index={index} />
-                <ObjectsAmountInput index={index} />
-                <ShowObjectsButton index={index} />
+                {maxWallObjectAmount > 0 && (
+                    <>
+                        <ObjectsAmountInput index={index} />
+                        <ShowObjectsButton index={index} />
+                    </>
+                )}
             </View>
             {showObjects && <ObjectsArray index={index} />}
         </View>

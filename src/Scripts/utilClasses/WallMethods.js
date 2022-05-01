@@ -5,6 +5,54 @@ import {
 
 export default class WallMethods {
 
+    static getMaxWallsAmount(data) { return data.maxWallsAmount }
+    static setMaxWallsAmount(setData, amount) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.maxWallsAmount = amount
+
+            //do a wall array contraction
+            const wallsAmount = newData.wallsAmount
+            if (amount < wallsAmount) {
+
+                newData.wallsAmount = amount
+
+                let newArray = newData.wallsArray
+                newArray = WallMethods.arrayContraction(newArray, amount)
+
+                newData.wallsArray = newArray
+            }
+            //===================================================================
+
+            return newData
+        })
+    }
+
+    static getMaxWallObjectsAmout(data) { return data.maxWallObjectsAmout }
+    static setMaxWallObjectsAmout(setData, amount) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.maxWallObjectsAmout = amount
+
+            //do a object array contraction
+            for(let wall_index = 0; wall_index < WallMethods.getWallsAmount(newData); wall_index++){
+                const objectsAmount = newData.wallsArray[wall_index].objectsAmount
+                if (amount < objectsAmount) {
+    
+                    newData.wallsArray[wall_index].objectsAmount = amount
+    
+                    let newArray = newData.wallsArray[wall_index].objectsArray
+                    newArray = WallMethods.arrayContraction(newArray, amount)
+    
+                    newData.wallsArray[wall_index].objectsArray = newArray
+                }
+            }
+            //===================================================================
+
+            return newData
+        })
+    }
+
     static getDefaultWallHeight(data) { return data.defaultWallHeight }
     static setDefaultWallHeight(setData, height) {
         setData(prev => {
@@ -24,13 +72,17 @@ export default class WallMethods {
                 height: WallMethods.getDefaultWallHeight(newData)
             }
 
-            //Handles expansion and retraction of wallsArray            
             let wallsArray = newData.wallsArray
-            amount > wallsArray.length
-                ? wallsArray = WallMethods.arrayExpansion(wallsArray, amount, wallFormat)
-                : wallsArray = WallMethods.arrayContraction(wallsArray, amount)
+            const maxAmount = WallMethods.getMaxWallsAmount(newData)
+            const validAmount = Number(amount) > Number(maxAmount)
+                ? maxAmount
+                : amount
 
-            newData.wallsAmount = amount
+            validAmount > wallsArray.length
+                ? wallsArray = WallMethods.arrayExpansion(wallsArray, validAmount, wallFormat)
+                : wallsArray = WallMethods.arrayContraction(wallsArray, validAmount)
+
+            newData.wallsAmount = validAmount
             newData.wallsArray = wallsArray
             return newData
         })
@@ -88,11 +140,16 @@ export default class WallMethods {
 
             //Handles expansion and retraction of objectsArray            
             let objectsArray = newData.wallsArray[wall_index].objectsArray
-            amount > objectsArray.length
-                ? objectsArray = WallMethods.arrayExpansion(objectsArray, amount, defaultObject)
-                : objectsArray = WallMethods.arrayContraction(objectsArray, amount)
+            const maxWallObjectAmount = WallMethods.getMaxWallObjectsAmout(newData)
+            const validAmount = Number(amount) > Number(maxWallObjectAmount)
+                ? maxWallObjectAmount
+                : amount
 
-            newData.wallsArray[wall_index].objectsAmount = amount
+            validAmount > objectsArray.length
+                ? objectsArray = WallMethods.arrayExpansion(objectsArray, validAmount, defaultObject)
+                : objectsArray = WallMethods.arrayContraction(objectsArray, validAmount)
+
+            newData.wallsArray[wall_index].objectsAmount = validAmount
             newData.wallsArray[wall_index].objectsArray = objectsArray
 
             return newData
@@ -323,9 +380,9 @@ export class ResultMethods {
             const newData = { ...prev }
 
             if (newData.config.gallonUnity === 'gallons') {
-                
+
                 //TO DO: Organize each of these blocks of code in its own function
-                
+
                 // set the amount of gallons
                 const coatAmount = Number(GallonsFormatMethods.getCoatAmount(newData))
                 const paintEfficiency = Number(GallonsFormatMethods.getPaintEfficiency(newData))

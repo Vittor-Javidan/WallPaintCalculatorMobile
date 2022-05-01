@@ -5,6 +5,8 @@ import {
     StyleSheet,
 } from 'react-native'
 
+import MaxWallsAmountInput from './WallConfigComponents/MaxWallsAmountInput'
+import MaxWallObjecsAmountInput from './WallConfigComponents/MaxWallObjecsAmountInput'
 import DefaultHeightInput from './WallConfigComponents/DefaultHeightInput'
 import WallsAmountInput from './WallConfigComponents/WallsAmountInput'
 
@@ -16,6 +18,8 @@ export default function WallConfig() {
                 Wall Config:
             </Text>
             <View style={styles.Inputs}>
+                <MaxWallsAmountInput />
+                <MaxWallObjecsAmountInput />
                 <DefaultHeightInput />
                 <WallsAmountInput />
             </View>

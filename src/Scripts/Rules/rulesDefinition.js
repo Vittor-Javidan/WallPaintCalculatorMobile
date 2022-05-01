@@ -10,13 +10,6 @@ function checkDefaultHeight(data, setStatus, wall_index) {
         return setStatus('defaultHeight must be a valid number')
 }
 
-function checkWallsAmount(data, setStatus, wall_index) {
-
-    const wallAmount = WallMethods.getWallsAmount(data)
-    if (wallAmount < 1 || isNaN(wallAmount))
-        return setStatus('wallsAmount must be a valid number')
-}
-
 function checkWallHeight(data, setStatus, wall_index) {
 
     const height = WallMethods.getWallHeight(data, wall_index)
@@ -119,7 +112,6 @@ const rulesArray = [
     checkWallDuplicates,
     checkWallWidth,
     checkWallHeight,
-    checkWallsAmount,
     checkDefaultHeight,
 ]
 
