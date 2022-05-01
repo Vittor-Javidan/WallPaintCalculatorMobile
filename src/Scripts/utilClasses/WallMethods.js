@@ -72,6 +72,15 @@ export default class WallMethods {
         })
     }
 
+    static getShowObjects(data, wall_index) { return data.wallsArray[wall_index].showObjects }
+    static setShowObjects(setData, wall_index, boolean_value) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.wallsArray[wall_index].showObjects = boolean_value
+            return newData
+        })
+    }
+
     static getObjectsAmount(data, wall_index) { return data.wallsArray[wall_index].objectsAmount }
     static setObjectsAmount(setData, wall_index, amount) {
         setData(prev => {
@@ -208,15 +217,6 @@ export class LitersFormatMethods {
 
 export class GallonsFormatMethods {
 
-    static getGallonSize(data) { return data.config.gallonsUnitFormat.gallonSize }
-    static setGallonSize(setData, value) {
-        setData(prev => {
-            const newData = { ...prev }
-            newData.config.gallonsUnitFormat.gallonSize = value
-            return newData
-        })
-    }
-
     static getGallonPrice(data) { return data.config.gallonsUnitFormat.gallonPrice }
     static setGallonPrice(setData, value) {
         setData(prev => {
@@ -323,7 +323,9 @@ export class ResultMethods {
             const newData = { ...prev }
 
             if (newData.config.gallonUnity === 'gallons') {
-
+                
+                //TO DO: Organize each of these blocks of code in its own function
+                
                 // set the amount of gallons
                 const coatAmount = Number(GallonsFormatMethods.getCoatAmount(newData))
                 const paintEfficiency = Number(GallonsFormatMethods.getPaintEfficiency(newData))
@@ -340,7 +342,7 @@ export class ResultMethods {
 
                 if (!gallons)
                     totalGallons = 'No gallons'
-                
+
                 newData.results.totalGallons = totalGallons
                 //===========================================================================
 
@@ -365,7 +367,7 @@ export class ResultMethods {
                 let areaToPaint = Number(ResultMethods.getTotalAreaToPaint(newData))
                 let totalGallons = ''
                 let totalPrice = 0
-                
+
                 let gallonsSizes = LitersFormatMethods.getGallonsSizes(newData).split(';')
                 let gallonsRespectivePrices = LitersFormatMethods.getGallonsRespectivePrices(newData).split(';')
 
@@ -445,9 +447,9 @@ export class ResultMethods {
 
                 if (totalGallons === '')
                     totalGallons = 'No gallons'
-                
+
                 newData.results.totalGallons = totalGallons
-                newData.results.totalPrice = `${totalPrice} bucks`
+                newData.results.totalPrice = `${totalPrice}`
                 //===============================================================================================
 
                 //set result time
@@ -457,9 +459,6 @@ export class ResultMethods {
                 const seconds = date.getSeconds()
                 newData.results.time = `${hour}:${minutes}:${seconds}`
                 //===================================================
-
-                
-                
 
                 return newData
             }

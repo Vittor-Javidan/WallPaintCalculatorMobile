@@ -76,9 +76,10 @@ diferentes.
 	- adicionar botões de incrementar, diminuir e deletar de acordo com a necessidade de cada input
 	- consertar o bug de preços não sendo respectivos as latas
 	- adicionar customização de altura individual nos formulário de cada parede
+	- adicionar um togle para esconder ou mostrar objetos	
 
 - ### A fazer:
 
-	- adicionar um togle para esconder ou mostrar objetos	
+	
 	- Adicionar limitar e adicionar inputs para o usuário definir qual o valore de paredes máximas ou objetos máximos caso ele deseje expandir o limite padrão
 	- adicionar opção de idioma (ENG, PT-BR)

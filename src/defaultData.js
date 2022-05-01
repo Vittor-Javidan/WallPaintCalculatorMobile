@@ -26,6 +26,7 @@ const defaultWall = {
     width: '0',
     duplicates: '1',
 
+    showObjects: true,
     objectsAmount: '0',
     objectsArray: [],
 }

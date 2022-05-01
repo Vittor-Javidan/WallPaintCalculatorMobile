@@ -14,12 +14,14 @@ import HeightInput from './WallFormComponents/HeightInput'
 import WidthInput from './WallFormComponents/WidthInput'
 import WallDuplicates from './WallFormComponents/WallDuplicates'
 import ObjectsAmountInput from './WallFormComponents/ObjectsAmountInput'
+import ShowObjectsButton from './WallFormComponents/ShowObjectsButton'
 
 import ObjectsArray from './WallFormComponents/ObjectsArray'
 
 export default function WallForm({ index }) {
 
     const { data } = React.useContext(AppContext)
+    const showObjects = WallMethods.getShowObjects(data, index)
 
     return (
         <View style={styles.Form}>
@@ -32,8 +34,9 @@ export default function WallForm({ index }) {
                 <HeightInput index={index} />
                 <WallDuplicates index={index} />
                 <ObjectsAmountInput index={index} />
+                <ShowObjectsButton index={index} />
             </View>
-            <ObjectsArray index={index} />
+            {showObjects && <ObjectsArray index={index} />}
         </View>
     )
 }
