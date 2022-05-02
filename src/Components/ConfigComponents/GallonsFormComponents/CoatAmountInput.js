@@ -9,12 +9,15 @@ import {
     StyleSheet
 } from 'react-native'
 
-import { GallonsFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
+import GallonsFormatMethods from '../../../Scripts/utilClasses/GallonsFormatMethods'
 
 export default function CoatAmountInput() {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Config.GallonsForm.CoatAmountInput.texts
+    const {
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.GallonCoatAmountInput
 
     function decreaseDuplicates() {
         let amount = Number(GallonsFormatMethods.getCoatAmount(data)) - 1

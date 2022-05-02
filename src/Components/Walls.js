@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         borderColor: '#000000',
         backgroundColor: '#EDE0D4',
         alignItems: 'center',
+        marginBottom: 10
     },
     ConfigurationForm: {
         marginTop: 2,

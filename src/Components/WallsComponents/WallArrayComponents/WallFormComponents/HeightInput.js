@@ -13,8 +13,11 @@ import WallMethods from '../../../../Scripts/utilClasses/WallMethods'
 
 export default function HeightInput({ index }) {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Walls.WallsArray.WallForm.HeightInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.WallHeightInput
 
     return (
         <View style={styles.Container}>

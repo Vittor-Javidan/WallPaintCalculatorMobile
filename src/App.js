@@ -1,4 +1,6 @@
 import React from 'react'
+import { defaultData } from './defaultData'
+
 import {
     View,
     Text,
@@ -6,8 +8,7 @@ import {
     ScrollView
 } from 'react-native'
 
-import languages from './languages'
-import { defaultData } from './defaultData'
+import LanguageSystem from './Scripts/utilClasses/LanguageSystem'
 
 import LanguageButton from './Components/LanguageButton'
 import Walls from './Components/Walls'
@@ -18,19 +19,14 @@ export const AppContext = React.createContext()
 
 export default function App() {
 
+    const [language, setLanguage] = React.useState(LanguageSystem.getDefaultLanguage())
     const [data, setData] = React.useState({ ...defaultData })
-    const [allLanguages, setAllLanguages] = React.useState({ ...languages })
 
-    let L
-    data.language === 'eng'
-        ? L = allLanguages.eng
-        : L = allLanguages.pt_br        
-    const T = L.App.texts
-    
+    const T = language.App
+
     const props = {
-        L,
-        data,
-        setData
+        language,   setLanguage,
+        data,       setData
     }
 
     return (
@@ -67,7 +63,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontSize: 25,
+        fontSize: 40,
         fontWeight: '700',
         textAlign: 'center',
         textAlignVertical: 'center',
@@ -76,6 +72,6 @@ const styles = StyleSheet.create({
         borderColor: '#000000',
         borderWidth: 1,
         width: '100%',
-        height: 40
+        marginBottom: 10
     }
 })

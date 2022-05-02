@@ -9,12 +9,15 @@ import {
     StyleSheet
 } from 'react-native'
 
-import { LitersFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
+import LitersFormatMethods from '../../../Scripts/utilClasses/LitersFormatMethods'
 
 export default function CoatAmountInput({ index_i, index_j }) {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Config.LitersForm.CoatAmountInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.LiterCoatAmountInput
 
     function decreaseDuplicates() {
         let amount = Number(LitersFormatMethods.getCoatAmount(data)) - 1

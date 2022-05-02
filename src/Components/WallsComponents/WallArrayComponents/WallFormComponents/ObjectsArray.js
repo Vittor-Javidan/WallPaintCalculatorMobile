@@ -19,19 +19,24 @@ export default function ObjectsArray({ index }) {
     for (let i = 0; i < objectsAmount; i++) {
 
         inputsArray.push(
-            <ObjectForm key={i} index_i={index} index_j={i}/>
+            <ObjectForm key={i} index_i={index} index_j={i} />
         )
     }
 
     return (
-        <View style={styles.Array}>
-            {inputsArray}
-        </View>
+        <>
+            {objectsAmount > 0 && (
+                <View style={styles.Array}>
+                    {inputsArray}
+                </View>
+            )}
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     Array: {
         width: '97%',
+        marginBottom: 8
     }
 })

@@ -13,8 +13,11 @@ import WallMethods from '../../../../../../Scripts/utilClasses/WallMethods'
 
 export default function ObjectNameInput({ index_i, index_j }) {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Walls.WallsArray.WallForm.ObjectsArray.ObjectForm.ObjectNameInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.ObjectNameInput
 
     return (
         <View style={styles.Container}>

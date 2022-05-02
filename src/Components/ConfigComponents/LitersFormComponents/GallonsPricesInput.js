@@ -9,12 +9,15 @@ import {
     StyleSheet
 } from 'react-native'
 
-import { LitersFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
+import LitersFormatMethods from '../../../Scripts/utilClasses/LitersFormatMethods'
 
 export default function GallonsPricesInput() {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Config.LitersForm.GallonsPricesInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.GallonsPricesInput
 
     return (
         <View style={styles.Container}>

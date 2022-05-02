@@ -9,12 +9,16 @@ import {
     StyleSheet
 } from 'react-native'
 
-import WallMethods, { GallonsFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
+import WallMethods from '../../../Scripts/utilClasses/WallMethods'
+import GallonsFormatMethods from '../../../Scripts/utilClasses/GallonsFormatMethods'
 
 export default function PaintEfficiencyInput() {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Config.GallonsForm.PaintEfficiencyInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.GallonPaintEfficiencyInput
 
     return (
         <View style={styles.Container}>

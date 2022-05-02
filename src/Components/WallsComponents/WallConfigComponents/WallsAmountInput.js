@@ -13,8 +13,11 @@ import WallMethods from '../../../Scripts/utilClasses/WallMethods'
 
 export default function WallsAmountInput() {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Walls.WallConfig.WallsAmountInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.WallsAmountInput
 
         function decreaseWallAmount() {
             let amount = Number(WallMethods.getWallsAmount(data)) - 1

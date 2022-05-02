@@ -20,8 +20,10 @@ import ObjectsArray from './WallFormComponents/ObjectsArray'
 
 export default function WallForm({ index }) {
 
-    const { L, data } = React.useContext(AppContext)
-    const T = L.App.Walls.WallsArray.WallForm.texts
+    const { 
+        language, data 
+    } = React.useContext(AppContext)
+    const T = language.WallForm
 
     const showObjects = WallMethods.getShowObjects(data, index)
     const maxWallObjectAmount = WallMethods.getMaxWallObjectsAmout(data)
@@ -32,10 +34,10 @@ export default function WallForm({ index }) {
                 {T.Wall} {index + 1}: {WallMethods.getWallName(data, index)}
             </Text>
             <View style={styles.Inputs}>
+                <WallDuplicates index={index} />
                 <NameInput index={index} />
                 <WidthInput index={index} />
                 <HeightInput index={index} />
-                <WallDuplicates index={index} />
                 {maxWallObjectAmount > 0 && (
                     <>
                         <ObjectsAmountInput index={index} />
@@ -55,17 +57,18 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#7F5539',
         alignItems: 'center',
-        marginBottom: 2,
+        marginBottom: 2
     },
     Title: {
         alignSelf: 'center',
         color: '#EDE0D4',
         fontWeight: '700',
-        fontSize: 20,
+        fontSize: 25,
         marginVertical: 5,
     },
     Inputs: {
         display: 'flex',
-        width: '100%'
+        width: '100%',
+        marginBottom: 10,
     }
 })

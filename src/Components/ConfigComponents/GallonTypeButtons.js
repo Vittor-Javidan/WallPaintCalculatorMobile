@@ -13,8 +13,11 @@ import WallMethods from '../../Scripts/utilClasses/WallMethods'
 
 export default function GallonTypeButtons() {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Config.GallonTypeButtons.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.GallonTypeButtons
 
     let litersButtonStatus
     let litersButtonText
@@ -65,7 +68,9 @@ const style = StyleSheet.create({
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around',
+        height: 40,
+        marginBottom: 10
     },
 })
 
@@ -73,7 +78,7 @@ const litersButtonStyle = StyleSheet.create({
 
     Button: {
         backgroundColor: '#7F5539',
-        width: '48%',
+        width: '46%',
         borderWidth: 1,
         borderRadius: 5,
         marginRight: 2,
@@ -81,7 +86,7 @@ const litersButtonStyle = StyleSheet.create({
     },
     ButtonSelected: {
         backgroundColor: '#0F0',
-        width: '48%',
+        width: '46%',
         borderWidth: 1,
         borderRadius: 5,
         marginRight: 2,
@@ -90,13 +95,13 @@ const litersButtonStyle = StyleSheet.create({
     Text: {
         alignSelf: 'center',
         color: '#EDE0D4',
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '700',
     },
     TextSelected: {
         alignSelf: 'center',
         color: '#000',
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '700',
     }
 })
@@ -121,13 +126,13 @@ const gallonsButtonStyle = StyleSheet.create({
     Text: {
         alignSelf: 'center',
         color: '#EDE0D4',
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '700',
     },
     TextSelected: {
         alignSelf: 'center',
         color: '#000',
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '700',
     }
 })

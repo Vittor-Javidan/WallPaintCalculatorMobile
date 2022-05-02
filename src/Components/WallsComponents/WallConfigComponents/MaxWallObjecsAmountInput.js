@@ -13,8 +13,11 @@ import WallMethods from '../../../Scripts/utilClasses/WallMethods'
 
 export default function MaxWallObjecsAmountInput() {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Walls.WallConfig.MaxWallObjecsAmountInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.MaxWallObjecsAmountInput
 
     return (
         <View style={styles.Container}>

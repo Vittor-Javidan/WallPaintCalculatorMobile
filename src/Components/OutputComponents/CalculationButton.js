@@ -8,12 +8,15 @@ import {
     StyleSheet
 } from 'react-native'
 
-import { ResultMethods } from '../../Scripts/utilClasses/WallMethods'
+import ResultMethods from '../../Scripts/utilClasses/ResultMethods'
 
 export default function CalculationButton({ status }) {
 
-    const { L, setData } = React.useContext(AppContext)
-    const T = L.App.Output.CalculationButton.texts
+    const { 
+        language, 
+        setData 
+    } = React.useContext(AppContext)
+    const T = language.CalculationButton
 
     return (
         <View style={styles.Container}>
@@ -36,16 +39,17 @@ export default function CalculationButton({ status }) {
 const styles = StyleSheet.create({
     Container: {
         alignSelf: 'center',
-        marginTop: 2,
-        width: '99%',
+        marginTop: 5,
+        width: '97%',
         borderWidth: 1,
         borderRadius: 5,
-        backgroundColor: '#00F'
+        backgroundColor: '#00F',
+        height: 40
     },
     Text: {
         alignSelf: 'center',
         color: '#fff',
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: '700',
     }
 })

@@ -13,8 +13,11 @@ import WallMethods from '../../Scripts/utilClasses/WallMethods'
 
 export default function MeasureUnitConfig() {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Walls.MeasureUnitConfig.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.MeasureUnitConfig
 
     let metersButtonStatus
     let metersButtonText
@@ -73,26 +76,28 @@ const formStyles = StyleSheet.create({
         borderColor: '#000000',
         backgroundColor: '#7F5539',
         alignItems: 'center',
-        marginBottom: 2
+        marginBottom: 10
     },
     Title: {
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: '700',
         color: '#EDE0D4',
-        marginVertical: 5
+        marginVertical: 10
     },
     Buttons: {
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around',
+        height: 40,
+        marginBottom: 10
     },
 })
 
 const metersButtonStyle = StyleSheet.create({
     Button: {
         backgroundColor: '#EDE0D4',
-        width: '48%',
+        width: '46%',
         borderWidth: 1,
         borderRadius: 5,
         marginRight: 2,
@@ -100,7 +105,7 @@ const metersButtonStyle = StyleSheet.create({
     },
     ButtonSelected: {
         backgroundColor: '#0F0',
-        width: '48%',
+        width: '46%',
         borderWidth: 1,
         borderRadius: 5,
         marginRight: 2,
@@ -109,13 +114,13 @@ const metersButtonStyle = StyleSheet.create({
     Text: {
         alignSelf: 'center',
         color: '#7F5539',
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '700',
     },
     TextSelected: {
         alignSelf: 'center',
         color: '#000',
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '700',
     }
 })
@@ -140,13 +145,13 @@ const feetsButtonStyle = StyleSheet.create({
     Text: {
         alignSelf: 'center',
         color: '#7F5539',
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '700',
     },
     TextSelected: {
         alignSelf: 'center',
         color: '#000',
-        fontSize: 15,
+        fontSize: 25,
         fontWeight: '700',
     }
 })

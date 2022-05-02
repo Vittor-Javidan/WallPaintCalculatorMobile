@@ -13,8 +13,11 @@ import WallMethods from '../../../../Scripts/utilClasses/WallMethods'
 
 export default function WidthInput({ index }) {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Walls.WallsArray.WallForm.WidthInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.WallWidthInput
 
     return (
         <View style={styles.Container}>

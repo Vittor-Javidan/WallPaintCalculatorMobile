@@ -16,8 +16,11 @@ import ObjectDuplicatesInput from './ObjectFormComponents/ObjectDuplicatesInput'
 
 export default function ObjectForm({ index_i, index_j }) {
 
-    const { L, data } = React.useContext(AppContext)
-    const T = L.App.Walls.WallsArray.WallForm.ObjectsArray.ObjectForm.texts
+    const { 
+        language, 
+        data 
+    } = React.useContext(AppContext)
+    const T = language.ObjectForm
 
     return (
         <View style={styles.Form}>
@@ -25,10 +28,10 @@ export default function ObjectForm({ index_i, index_j }) {
                 {T.Objeto} {index_j + 1}: {WallMethods.getObjectName(data, index_i, index_j)}
             </Text>
             <View style={styles.Inputs}>
+                <ObjectDuplicatesInput index_i={index_i} index_j={index_j} />
                 <ObjectNameInput index_i={index_i} index_j={index_j} />
                 <ObjectWidthInput index_i={index_i} index_j={index_j} />
                 <ObjectHeightInput index_i={index_i} index_j={index_j} />
-                <ObjectDuplicatesInput index_i={index_i} index_j={index_j} />
             </View>
         </View>
     )
@@ -48,9 +51,11 @@ const styles = StyleSheet.create({
         color: '#7F5539',
         fontWeight: '700',
         fontSize: 20,
+        marginVertical: 5,
     },
     Inputs: {
         display: 'flex',
-        width: '100%'
+        width: '100%',
+        marginBottom: 10
     }
 })

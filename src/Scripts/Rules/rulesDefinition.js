@@ -1,7 +1,6 @@
-import WallMethods, {
-    GallonsFormatMethods,
-    LitersFormatMethods
-} from '../utilClasses/WallMethods'
+import WallMethods from '../utilClasses/WallMethods'
+import LitersFormatMethods from '../utilClasses/LitersFormatMethods'
+import GallonsFormatMethods from '../utilClasses/GallonsFormatMethods'
 
 function checkDefaultHeight(data, setStatus, wall_index) {
 

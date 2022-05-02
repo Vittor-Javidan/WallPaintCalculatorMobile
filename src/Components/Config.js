@@ -16,8 +16,11 @@ import GallonsForm from './ConfigComponents/GallonsForm'
 
 export default function Config() {
 
-    const { L, data } = React.useContext(AppContext)
-    const T = L.App.Config.texts
+    const { 
+        language, 
+        data 
+    } = React.useContext(AppContext)
+    const T = language.Config
 
     return (
         <View style={formStyles.Form}>
@@ -41,9 +44,10 @@ const formStyles = StyleSheet.create({
         borderColor: '#000000',
         backgroundColor: '#EDE0D4',
         alignItems: 'center',
+        marginBottom: 10
     },
     Title: {
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: '700',
         color: '#7F5539',
         marginVertical: 5

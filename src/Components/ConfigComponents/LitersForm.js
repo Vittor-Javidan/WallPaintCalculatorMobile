@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
         width: '100%',
         display: 'flex',
         justifyContent: 'space-around',
+        marginBottom: 10
     },
 })

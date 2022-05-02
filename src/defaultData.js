@@ -9,6 +9,11 @@ const configOptions = {
         LITERS: 'L',
         GALLONS: 'gallons',
     },
+
+    LANGUAGES: {
+        ENG: 'eng',
+        PT_BR: 'pt_br'
+    }
 }
 
 const defaultObject = {
@@ -35,6 +40,7 @@ const defaultData = {
 
     language: 'eng',
 
+    showMoreOptions: false,
     maxWallsAmount: '10',
     maxWallObjectsAmout: '10',
     defaultWallHeight: '0',

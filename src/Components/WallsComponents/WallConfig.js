@@ -7,15 +7,23 @@ import {
     StyleSheet,
 } from 'react-native'
 
+import WallMethods from '../../Scripts/utilClasses/WallMethods'
+
 import MaxWallsAmountInput from './WallConfigComponents/MaxWallsAmountInput'
 import MaxWallObjecsAmountInput from './WallConfigComponents/MaxWallObjecsAmountInput'
 import DefaultHeightInput from './WallConfigComponents/DefaultHeightInput'
 import WallsAmountInput from './WallConfigComponents/WallsAmountInput'
+import ShowMoreOptionsButton from './WallConfigComponents/ShowMoreOptionsButton'
 
 export default function WallConfig() {
 
-    const { L } = React.useContext(AppContext)
-    const T = L.App.Walls.WallConfig.texts
+    const { 
+        language, 
+        data 
+    } = React.useContext(AppContext)
+    const T = language.WallConfig
+
+    const showMoreOptions = WallMethods.getShowMoreOptions(data)
 
     return (
         <View style={styles.Form}>
@@ -23,9 +31,14 @@ export default function WallConfig() {
                 {T.Wall_Config}:
             </Text>
             <View style={styles.Inputs}>
-                <MaxWallsAmountInput />
-                <MaxWallObjecsAmountInput />
-                <DefaultHeightInput />
+                <ShowMoreOptionsButton />
+                {showMoreOptions && (
+                    <>
+                        <MaxWallsAmountInput />
+                        <MaxWallObjecsAmountInput />
+                        <DefaultHeightInput />
+                    </>
+                )}
                 <WallsAmountInput />
             </View>
         </View>
@@ -40,10 +53,10 @@ const styles = StyleSheet.create({
         borderColor: '#000000',
         backgroundColor: '#7F5539',
         alignItems: 'center',
-        marginBottom: 2
+        marginBottom: 10
     },
     Title: {
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: '700',
         color: '#EDE0D4',
         marginVertical: 5
@@ -51,5 +64,6 @@ const styles = StyleSheet.create({
     Inputs: {
         display: 'flex',
         width: '100%',
+        marginBottom: 10
     },
 })

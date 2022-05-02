@@ -9,12 +9,16 @@ import {
     StyleSheet
 } from 'react-native'
 
-import WallMethods, { LitersFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
+import WallMethods from '../../../Scripts/utilClasses/WallMethods'
+import LitersFormatMethods from '../../../Scripts/utilClasses/LitersFormatMethods'
 
 export default function PaintEfficiencyInput({ index_i, index_j }) {
 
-    const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Config.LitersForm.PaintEfficiencyInput.texts
+    const { 
+        language, 
+        data, setData 
+    } = React.useContext(AppContext)
+    const T = language.LiterPaintEfficiencyInput
 
     return (
         <View style={styles.Container}>
