@@ -4,7 +4,6 @@ import {
     StyleSheet
 } from 'react-native'
 
-import MeasureUnitConfig from './WallsComponents/MeasureUnitConfig'
 import WallConfig from './WallsComponents/WallConfig'
 import WallsArray from './WallsComponents/WallsArray'
 
@@ -12,7 +11,6 @@ export default function Walls() {
 
     return (
         <View style={styles.Appform}>
-            <MeasureUnitConfig />
             <WallConfig />
             <WallsArray />
         </View>
@@ -22,7 +20,7 @@ export default function Walls() {
 const styles = StyleSheet.create({
     Appform: {
         marginTop: 2,
-        width: '99%',
+        width: '98%',
         borderWidth: 1,
         borderRadius: 5,
         borderColor: '#000000',

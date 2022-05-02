@@ -77,13 +77,13 @@ const formStyles = StyleSheet.create({
 
     Form: {
         marginTop: 2,
-        width: '99%',
+        width: '98%',
         borderWidth: 1,
         borderRadius: 5,
         borderColor: '#000000',
         backgroundColor: '#EDE0D4',
         alignItems: 'center',
-        marginBottom: 2
+        marginBottom: 10
     },
     Title: {
         fontSize: 30,

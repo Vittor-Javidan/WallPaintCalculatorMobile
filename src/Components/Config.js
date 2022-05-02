@@ -38,7 +38,7 @@ export default function Config() {
 const formStyles = StyleSheet.create({
     Form: {
         marginTop: 2,
-        width: '99%',
+        width: '98%',
         borderWidth: 1,
         borderRadius: 5,
         borderColor: '#000000',

@@ -82,19 +82,19 @@ const styles = StyleSheet.create({
     Label: {
         textAlign: 'center',
         textAlignVertical: 'center',
-        color: '#EDE0D4',
+        color: '#7F5539',
         paddingLeft: 2,
     },
     Input: {
         borderWidth: 1,
         borderRadius: 4,
         fontSize: 14,
-        backgroundColor: '#EDE0D4',
+        backgroundColor: '#7F5539',
         color: '#000',
         padding: 0,
         paddingHorizontal: 7,
         width: 90,
-        color: '#7F5539'
+        color: '#EDE0D4'
     },
     DecreaseButton: {
         backgroundColor: '#FF0000',

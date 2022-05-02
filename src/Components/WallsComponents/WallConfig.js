@@ -28,7 +28,7 @@ export default function WallConfig() {
     return (
         <View style={styles.Form}>
             <Text style={styles.Title}>
-                {T.Wall_Config}:
+                {T.Wall_Config}
             </Text>
             <View style={styles.Inputs}>
                 <ShowMoreOptionsButton />
@@ -48,17 +48,16 @@ export default function WallConfig() {
 const styles = StyleSheet.create({
     Form: {
         width: '99%',
-        borderWidth: 1,
         borderRadius: 5,
         borderColor: '#000000',
-        backgroundColor: '#7F5539',
+        backgroundColor: '#EDE0D4',
         alignItems: 'center',
-        marginBottom: 10
+        marginTop: 1
     },
     Title: {
         fontSize: 30,
         fontWeight: '700',
-        color: '#EDE0D4',
+        color: '#7F5539',
         marginVertical: 5
     },
     Inputs: {

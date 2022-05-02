@@ -10,10 +10,11 @@ import {
 
 import LanguageSystem from './Scripts/utilClasses/LanguageSystem'
 
-import LanguageButton from './Components/LanguageButton'
+import MeasureUnitConfig from './Components/MeasureUnitConfig'
 import Walls from './Components/Walls'
 import Config from './Components/Config'
 import Output from './Components/Output'
+import LanguageButton from './Components/LanguageButton'
 
 export const AppContext = React.createContext()
 
@@ -37,10 +38,11 @@ export default function App() {
                         <Text style={styles.title}>
                             {T.Wall_Paint_Calculator}
                         </Text>
+                        <LanguageButton />
+                        <MeasureUnitConfig />
                         <Walls />
                         <Config />
                         <Output />
-                        <LanguageButton />
                     </View>
                 </ScrollView>
             </View>

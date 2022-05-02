@@ -1,6 +1,6 @@
 import React from 'react'
-import { AppContext } from '../../App'
-import { configOptions } from '../../defaultData'
+import { AppContext } from '../App'
+import { configOptions } from '../defaultData'
 
 import {
     View,
@@ -9,7 +9,7 @@ import {
     StyleSheet
 } from 'react-native'
 
-import WallMethods from '../../Scripts/utilClasses/WallMethods'
+import WallMethods from '../Scripts/utilClasses/WallMethods'
 
 export default function MeasureUnitConfig() {
 
@@ -70,18 +70,18 @@ const formStyles = StyleSheet.create({
 
     Form: {
         marginTop: 2,
-        width: '99%',
+        width: '98%',
         borderWidth: 1,
         borderRadius: 5,
         borderColor: '#000000',
-        backgroundColor: '#7F5539',
+        backgroundColor: '#EDE0D4',
         alignItems: 'center',
         marginBottom: 10
     },
     Title: {
-        fontSize: 25,
+        fontSize: 30,
         fontWeight: '700',
-        color: '#EDE0D4',
+        color: '#7F5539',
         marginVertical: 10
     },
     Buttons: {
@@ -96,7 +96,7 @@ const formStyles = StyleSheet.create({
 
 const metersButtonStyle = StyleSheet.create({
     Button: {
-        backgroundColor: '#EDE0D4',
+        backgroundColor: '#7F5539',
         width: '46%',
         borderWidth: 1,
         borderRadius: 5,
@@ -113,7 +113,7 @@ const metersButtonStyle = StyleSheet.create({
     },
     Text: {
         alignSelf: 'center',
-        color: '#7F5539',
+        color: '#EDE0D4',
         fontSize: 25,
         fontWeight: '700',
     },
@@ -127,7 +127,7 @@ const metersButtonStyle = StyleSheet.create({
 
 const feetsButtonStyle = StyleSheet.create({
     Button: {
-        backgroundColor: '#EDE0D4',
+        backgroundColor: '#7F5539',
         width: '48%',
         borderWidth: 1,
         borderRadius: 5,
@@ -144,7 +144,7 @@ const feetsButtonStyle = StyleSheet.create({
     },
     Text: {
         alignSelf: 'center',
-        color: '#7F5539',
+        color: '#EDE0D4',
         fontSize: 25,
         fontWeight: '700',
     },

@@ -48,19 +48,19 @@ const styles = StyleSheet.create({
         width: '50%',
         borderWidth: 1,
         borderRadius: 5,
-        backgroundColor: '#EDE0D4',
+        backgroundColor: '#7F5539',
         marginTop: 5,
         marginBottom: 15,
     },
     ShowText: {
         alignSelf: 'center',
-        color: '#7F5539',
+        color: '#EDE0D4',
         fontSize: 20,
         fontWeight: '700',
     },
     HideText: {
         alignSelf: 'center',
-        color: '#7F5539',
+        color: '#EDE0D4',
         fontSize: 20,
         fontWeight: '700',
     }
