@@ -22,10 +22,12 @@ export default function ObjectForm({ index_i, index_j }) {
     } = React.useContext(AppContext)
     const T = language.ObjectForm
 
+    const objectDuplicates = WallMethods.getObjectDuplicates(data, index_i, index_j)
+
     return (
         <View style={styles.Form}>
             <Text style={styles.Title}>
-                {T.Objeto} {index_j + 1}: {WallMethods.getObjectName(data, index_i, index_j)}
+                {objectDuplicates > 1 && `${objectDuplicates}x `}{T.Objeto} {index_j + 1}: {WallMethods.getObjectName(data, index_i, index_j)}
             </Text>
             <View style={styles.Inputs}>
                 <ObjectDuplicatesInput index_i={index_i} index_j={index_j} />

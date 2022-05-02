@@ -1,105 +1,119 @@
+import LanguageSystem from '../utilClasses/LanguageSystem'
+
 import WallMethods from '../utilClasses/WallMethods'
 import LitersFormatMethods from '../utilClasses/LitersFormatMethods'
 import GallonsFormatMethods from '../utilClasses/GallonsFormatMethods'
 
-function checkDefaultHeight(data, setStatus, wall_index) {
+function checkWallLimitAmount(data, setStatus, wall_index, warningMsgs) {
+    const wallMaxAmount = WallMethods.getMaxWallsAmount(data)
+    if (wallMaxAmount < 0 || isNaN(wallMaxAmount))
+        return setStatus(warningMsgs.wallLimitAmountText())
+}
+
+function checkObjectsLimitAmount(data, setStatus, wall_index, warningMsgs) {
+    const objectsMaxAmount = WallMethods.getMaxWallObjectsAmout(data)
+    if (objectsMaxAmount < 0 || isNaN(objectsMaxAmount))
+        return setStatus(warningMsgs.objectsLimitAmountText())
+}
+
+function checkDefaultHeight(data, setStatus, wall_index, warningMsgs) {
 
     const defaultHeight = WallMethods.getDefaultWallHeight(data)
     if (defaultHeight < 0 || isNaN(defaultHeight))
-        return setStatus('defaultHeight must be a valid number')
+        return setStatus(warningMsgs.defaultHeightText())
 }
 
-function checkWallHeight(data, setStatus, wall_index) {
+function checkWallHeight(data, setStatus, wall_index, warningMsgs) {
 
     const height = WallMethods.getWallHeight(data, wall_index)
     if (height < 0 || isNaN(height))
-        return setStatus(`Wall ${wall_index + 1} height must be a valid number`)
+        return setStatus(warningMsgs.wallHeightText(wall_index))
 }
 
-function checkWallWidth(data, setStatus, wall_index) {
+function checkWallWidth(data, setStatus, wall_index, warningMsgs) {
 
     const width = WallMethods.getWallWidth(data, wall_index)
     if (width < 0 || isNaN(width))
-        return setStatus(`Wall ${wall_index + 1} width must be a valid number`)
+        return setStatus(warningMsgs.wallWidthText(wall_index))
 }
 
-function checkWallDuplicates(data, setStatus, wall_index) {
+function checkWallDuplicates(data, setStatus, wall_index, warningMsgs) {
 
     const duplicates = WallMethods.getWallDuplicates(data, wall_index)
     if (duplicates < 0 || isNaN(duplicates))
-        return setStatus(`Wall ${wall_index + 1} duplicates must be a valid number`)
+        return setStatus(warningMsgs.wallDuplicatesText(wall_index))
 }
 
-function checkWallObjectsAmount(data, setStatus, wall_index) {
+function checkWallObjectsAmount(data, setStatus, wall_index, warningMsgs) {
 
     const objectsAmount = WallMethods.getObjectsAmount(data, wall_index)
     if (objectsAmount < 0 || isNaN(objectsAmount))
-        return setStatus(`Wall ${wall_index + 1} objectsAmount must be a valid number`)
+        return setStatus(warningMsgs.wallObjectsAmountText(wall_index))
 }
 
-function checkObjectsInfo(data, setStatus, wall_index) {
+function checkObjectsInfo(data, setStatus, wall_index, warningMsgs) {
 
     for (let object_index = 0; object_index < WallMethods.getObjectsAmount(data, wall_index); object_index++) {
 
         const height = WallMethods.getObjectHeight(data, wall_index, object_index)
         if (height < 0 || isNaN(height))
-            return setStatus(`Object ${object_index + 1} height on Wall ${wall_index + 1} must be a valid number`)
+            return setStatus(warningMsgs.objectHeighText(wall_index, object_index))
 
         const width = WallMethods.getObjectWidth(data, wall_index, object_index)
         if (width < 0 || isNaN(width))
-            return setStatus(`Object ${object_index + 1} width on Wall ${wall_index + 1} must be a valid number`)
+            return setStatus(warningMsgs.objectWidthText(wall_index, object_index))
 
         const duplicates = WallMethods.getObjectDuplicates(data, wall_index, object_index)
         if (duplicates < 1 || isNaN(duplicates))
-            return setStatus(`Object ${object_index + 1} duplicates on Wall ${wall_index + 1} must be a valid number`)
+            return setStatus(warningMsgs.objectDuplicatesText(wall_index, object_index))
     }
 }
 
-function checkLitersUnitFormatInputs(data, setStatus, wall_index) {
+function checkLitersUnitFormatInputs(data, setStatus, wall_index, warningMsgs) {
 
     const gallonsSizes = LitersFormatMethods.getGallonsSizes(data).split(';')
     const gallonsRespectivePrices = LitersFormatMethods.getGallonsRespectivePrices(data).split(';')
 
     //Check input amount
     if (gallonsSizes.length !== gallonsRespectivePrices.length)
-        return setStatus('check if each gallonsSizes has a price, and if they are using ";" to distinguish each number')
+        return setStatus(warningMsgs.LitersInputAmountText())
 
     //Checks if the numbers have a valid format
     for (let i = 0; i < gallonsSizes.length; i++) {
         if (isNaN(gallonsSizes[i]) || isNaN(gallonsRespectivePrices[i]))
-            return setStatus('check if each gallonsSizes and its prices has the follow number format: 000.00')
+            return setStatus(warningMsgs.LitersValidFormatText1())
         else if (gallonsSizes[i] < 0 || gallonsRespectivePrices[i] < 0)
-            return setStatus('check if each gallonsSizes and its prices have any negative number')
+            return setStatus(warningMsgs.LitersValidFormatText2())
     }
 
     //Check if coatAmount have a valid format
     const coatAmount = LitersFormatMethods.getCoatAmount(data)
     if (coatAmount < 1 || isNaN(coatAmount))
-        return setStatus('check if coatAmount is a valid number')
+        return setStatus(warningMsgs.LitersCoatAmountText())
 
     //check if paintEfficiency
     const paintEfficiency = LitersFormatMethods.getPaintEfficiency(data)
     if (paintEfficiency < 0 || isNaN(paintEfficiency))
-        return setStatus('check if paintEfficiency is a valid number')
+        return setStatus(warningMsgs.LitersPaintEfficiencyText())
 
 }
 
-function checkGallonsUnitFormat(data, setStatus, wall_index) {
+function checkGallonsUnitFormat(data, setStatus, wall_index, warningMsgs) {
 
     //Check if gallonPrice have a valid format
     const gallonPrice = GallonsFormatMethods.getGallonPrice(data)
     if (gallonPrice < 0 || isNaN(gallonPrice))
-        return setStatus('check if gallonPrice is a valid number')
+        return setStatus(warningMsgs.GallonPriceText())
 
     //Check if coatAmount have a valid format
     const coatAmount = GallonsFormatMethods.getCoatAmount(data)
     if (coatAmount < 1 || isNaN(coatAmount))
-        return setStatus('check if coatAmount is a valid number')
+        return setStatus(warningMsgs.GallonCoatAmountText())
 
     //check if paintEfficiency have a valid format
     const paintEfficiency = GallonsFormatMethods.getPaintEfficiency(data)
     if (paintEfficiency < 0 || isNaN(paintEfficiency))
-        return setStatus('check if Coverage/gallon is a valid number')
+        return setStatus(warningMsgs.GallonPaintEfficiencyText())
 }
 
 const rulesArray = [
@@ -112,16 +126,19 @@ const rulesArray = [
     checkWallWidth,
     checkWallHeight,
     checkDefaultHeight,
+    checkWallLimitAmount,
+    checkObjectsLimitAmount
 ]
 
 export default function verifyConditions(data, setStatus) {
 
+    const warningMsgs = LanguageSystem.getWarningMsg(data)
     setStatus('ok')
 
     for (let wall_index = 0; wall_index < WallMethods.getWallsAmount(data); wall_index++) {
 
         rulesArray.forEach(element => {
-            element(data, setStatus, wall_index)
+            element(data, setStatus, wall_index, warningMsgs)
         });
     }
 

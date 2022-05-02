@@ -14,7 +14,7 @@ const pt_br = {
         Wall_Config: 'Configurações das Paredes'
     },
     MaxWallObjecsAmountInput: {
-        Max_Wall_Objects_Amount: 'Limite de Objetos',
+        Max_Wall_Objects_Amount: 'Limite de Objetos / parede',
         Del: 'Del'
     },
     MaxWallsAmountInput: {

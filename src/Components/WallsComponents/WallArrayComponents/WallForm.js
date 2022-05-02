@@ -25,13 +25,14 @@ export default function WallForm({ index }) {
     } = React.useContext(AppContext)
     const T = language.WallForm
 
+    const wallAmount = WallMethods.getWallDuplicates(data, index)
     const showObjects = WallMethods.getShowObjects(data, index)
     const maxWallObjectAmount = WallMethods.getMaxWallObjectsAmout(data)
 
     return (
         <View style={styles.Form}>
             <Text style={styles.Title}>
-                {T.Wall} {index + 1}: {WallMethods.getWallName(data, index)}
+                {wallAmount > 1 && `${wallAmount}x `}{T.Wall} {index + 1}: {WallMethods.getWallName(data, index)}
             </Text>
             <View style={styles.Inputs}>
                 <WallDuplicates index={index} />

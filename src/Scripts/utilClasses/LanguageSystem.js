@@ -1,14 +1,15 @@
-import { 
+import {
     configOptions,
     defaultData
 } from "../../defaultData"
 
 import languages from "../../Languages/languages"
+import warningMsgs from "../../Languages/Warnings/WarningMsgs"
 
 export default class LanguageSystem {
 
-    static getDefaultLanguage(){
-        if(defaultData.language === configOptions.LANGUAGES.PT_BR)
+    static getDefaultLanguage() {
+        if (defaultData.language === configOptions.LANGUAGES.PT_BR)
             return languages.pt_br
         else
             return languages.eng
@@ -29,5 +30,12 @@ export default class LanguageSystem {
             else
                 return languages.eng
         })
+    }
+
+    static getWarningMsg(data) {
+        if (data.language === configOptions.LANGUAGES.PT_BR)
+            return warningMsgs.pt_br
+        else
+            return warningMsgs.eng
     }
 }

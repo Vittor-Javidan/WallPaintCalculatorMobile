@@ -14,7 +14,7 @@ const eng = {
         Wall_Config: 'Wall Config'
     },
     MaxWallObjecsAmountInput: {
-        Max_Wall_Objects_Amount: 'Objects Limit Amount',
+        Max_Wall_Objects_Amount: 'Objects Limit Amount / Wall',
         Del: 'Del'
     },
     MaxWallsAmountInput: {

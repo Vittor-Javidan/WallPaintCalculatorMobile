@@ -80,9 +80,9 @@ diferentes.
 	- Adicionar limitar e adicionar inputs para o usuário definir qual o valore de paredes máximas ou objetos máximos caso ele deseje expandir o limite padrão
 	- adicionar opção de idioma (ENG, PT-BR)
 	- crear um botão de mostrar mais opções, nas configurações de parede, para limpar o excesso de informação
+	- adicionar multiplicador no nome das paredes e objetos
+	- Adicionar tradução para os avisos
 
 - ### A fazer:
 
-	- adicionar multiplicador no nome das paredes e objetos
-	- Adicionar tradução para os avisos
 	- adicionar salvamento automático
