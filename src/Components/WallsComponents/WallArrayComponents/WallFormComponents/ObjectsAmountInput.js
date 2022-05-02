@@ -13,7 +13,8 @@ import WallMethods from '../../../../Scripts/utilClasses/WallMethods'
 
 export default function ObjectsAmountInput({ index }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.ObjectsAmountInput.texts
 
     function decreaseObjects() {
         let amount = Number(WallMethods.getObjectsAmount(data, index)) - 1
@@ -30,7 +31,7 @@ export default function ObjectsAmountInput({ index }) {
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Objects Amount
+                {T.Objects_Amount}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput

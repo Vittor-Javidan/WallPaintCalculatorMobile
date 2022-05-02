@@ -13,7 +13,8 @@ import WallMethods from '../../../../../../Scripts/utilClasses/WallMethods'
 
 export default function ObjectDuplicatesInput({ index_i, index_j }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.ObjectsArray.ObjectForm.ObjectDuplicatesInput.texts
 
     function decreaseDuplicates(){
         let amount = Number(WallMethods.getObjectDuplicates(data, index_i, index_j)) - 1
@@ -30,7 +31,7 @@ export default function ObjectDuplicatesInput({ index_i, index_j }) {
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Duplicates
+                {T.Duplicates}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput

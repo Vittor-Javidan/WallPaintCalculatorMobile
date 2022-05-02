@@ -13,12 +13,13 @@ import WallMethods from '../../../../../../Scripts/utilClasses/WallMethods'
 
 export default function ObjectNameInput({ index_i, index_j }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.ObjectsArray.ObjectForm.ObjectNameInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Name
+                {T.Name}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function ObjectNameInput({ index_i, index_j }) {
                             WallMethods.setObjectName(setData, index_i, index_j, '')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

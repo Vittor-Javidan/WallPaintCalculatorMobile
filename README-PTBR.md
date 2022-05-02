@@ -78,7 +78,8 @@ diferentes.
 	- adicionar customização de altura individual nos formulário de cada parede
 	- adicionar um togle para esconder ou mostrar objetos
 	- Adicionar limitar e adicionar inputs para o usuário definir qual o valore de paredes máximas ou objetos máximos caso ele deseje expandir o limite padrão
+	- adicionar opção de idioma (ENG, PT-BR)
 
 - ### A fazer:
 
-	- adicionar opção de idioma (ENG, PT-BR)
+	- adicionar salvamento automático

@@ -20,14 +20,16 @@ import ObjectsArray from './WallFormComponents/ObjectsArray'
 
 export default function WallForm({ index }) {
 
-    const { data } = React.useContext(AppContext)
+    const { L, data } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.texts
+
     const showObjects = WallMethods.getShowObjects(data, index)
     const maxWallObjectAmount = WallMethods.getMaxWallObjectsAmout(data)
 
     return (
         <View style={styles.Form}>
             <Text style={styles.Title}>
-                Wall {index + 1}: {WallMethods.getWallName(data, index)}
+                {T.Wall} {index + 1}: {WallMethods.getWallName(data, index)}
             </Text>
             <View style={styles.Inputs}>
                 <NameInput index={index} />

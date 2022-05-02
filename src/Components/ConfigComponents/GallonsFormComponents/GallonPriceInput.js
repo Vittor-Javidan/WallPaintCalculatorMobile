@@ -13,12 +13,13 @@ import { GallonsFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
 
 export default function GallonPriceInput() {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Config.GallonsForm.GallonPriceInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Gallon Price
+                {T.Gallon_Price}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function GallonPriceInput() {
                             GallonsFormatMethods.setGallonPrice(setData, '')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

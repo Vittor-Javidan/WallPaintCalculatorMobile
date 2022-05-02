@@ -33,6 +33,8 @@ const defaultWall = {
 
 const defaultData = {
 
+    language: 'eng',
+
     maxWallsAmount: '10',
     maxWallObjectsAmout: '10',
     defaultWallHeight: '0',

@@ -13,12 +13,13 @@ import WallMethods from '../../../../Scripts/utilClasses/WallMethods'
 
 export default function WidthInput({ index }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.WidthInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Width ({WallMethods.getLenghtUnit(data)})
+                {T.Width} ({WallMethods.getLenghtUnit(data)})
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function WidthInput({ index }) {
                             WallMethods.setWallWidth(setData, index, '0')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

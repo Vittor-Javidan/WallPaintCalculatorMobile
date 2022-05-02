@@ -16,12 +16,13 @@ import GallonsForm from './ConfigComponents/GallonsForm'
 
 export default function Config() {
 
-    const { data } = React.useContext(AppContext)
+    const { L, data } = React.useContext(AppContext)
+    const T = L.App.Config.texts
 
     return (
         <View style={formStyles.Form}>
             <Text style={formStyles.Title}>
-                Volume Config
+                {T.Volume_Config}
             </Text>
             <GallonTypeButtons />
             {WallMethods.getGallonUnity(data) === configOptions.GALLON_UNIT.LITERS

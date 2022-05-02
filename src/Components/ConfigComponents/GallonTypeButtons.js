@@ -13,7 +13,8 @@ import WallMethods from '../../Scripts/utilClasses/WallMethods'
 
 export default function GallonTypeButtons() {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Config.GallonTypeButtons.texts
 
     let litersButtonStatus
     let litersButtonText
@@ -40,7 +41,7 @@ export default function GallonTypeButtons() {
                     }}
                 >
                     <Text style={gallonsButtonText}>
-                        Gallons
+                        {T.Gallons}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -51,7 +52,7 @@ export default function GallonTypeButtons() {
                     }}
                 >
                     <Text style={litersButtonText}>
-                        Liters
+                        {T.Liters}
                     </Text>
                 </TouchableOpacity>
             </View>

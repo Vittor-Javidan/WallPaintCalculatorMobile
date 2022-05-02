@@ -13,13 +13,14 @@ import WallForm from './WallArrayComponents/WallForm'
 export default function WallsArray (){
 
     const { data } = React.useContext(AppContext)
+    
     const inputsArray = []
 
     const wallsAmount = Math.floor(Number(WallMethods.getWallsAmount(data)))
     for (let wall_index = 0; wall_index < wallsAmount; wall_index++) {
 
         inputsArray.push(
-            <WallForm key={wall_index} index={wall_index}>Wall</WallForm>
+            <WallForm key={wall_index} index={wall_index}/>
         )
     }
 

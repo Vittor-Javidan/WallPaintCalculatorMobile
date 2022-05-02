@@ -20,7 +20,9 @@ import CalculationButton from './OutputComponents/CalculationButton'
 
 export default function Output() {
 
-    const { data } = React.useContext(AppContext)
+    const { L, data } = React.useContext(AppContext)
+    const T = L.App.Output.texts
+
     const [status, setStatus] = React.useState('Press Calculate')
 
     let gallonUnity = WallMethods.getGallonUnity(data)
@@ -50,7 +52,7 @@ export default function Output() {
                 <View style={styles.Output}>
                     <CalculationButton status={status} setStatus={setStatus} />
                     <Text style={styles.Title}>
-                        Status:
+                        {T.Status}:
                     </Text>
                     <Text style={styles.Texts}>
                         {status}
@@ -61,28 +63,28 @@ export default function Output() {
                 <View style={styles.Output}>
                     <CalculationButton status={status} setStatus={setStatus} />
                     <Text style={styles.Title}>
-                        Status:
+                        {T.Status}:
                     </Text>
                     <Text style={styles.Texts}>
                         {status}
                     </Text>
                     <Text style={styles.Title}>
-                        (time: {resultTime}) Last Results:
+                        ({T.Time}: {resultTime}) {T.Last_Results}:
                     </Text>
                     <Text style={styles.Texts}>
-                        Total wall area: {totalWallArea} {lenghtUnit}2
+                        {T.Total_wall_area}: {totalWallArea} {lenghtUnit}2
                     </Text>
                     <Text style={styles.Texts}>
-                        Total objects area: {totalObjectArea} {lenghtUnit}2
+                        {T.Total_objects_area}: {totalObjectArea} {lenghtUnit}2
                     </Text>
                     <Text style={styles.Texts}>
-                        Total area to paint: {areaToPaint} {lenghtUnit}2 x {coats} coats = {areaToPaint * coats} {lenghtUnit}2
+                        {T.Total_area_to_paint}: {areaToPaint} {lenghtUnit}2 x {coats} {T.Coats} = {areaToPaint * coats} {lenghtUnit}2
                     </Text>
                     <Text style={styles.Texts}>
-                        Total gallons: {totalGallons}
+                        {T.Total_gallons}: {totalGallons}
                     </Text>
                     <Text style={styles.Texts}>
-                        Total price: {totalPrice}
+                        {T.Total_price}: {totalPrice}
                     </Text>
                 </View>
             )

@@ -13,16 +13,17 @@ import WallMethods from '../../../Scripts/utilClasses/WallMethods'
 
 export default function MaxWallsAmountInput() {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallConfig.MaxWallsAmountInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Max Wall Amount
+                {T.Max_Wall_Amount}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
-                    style = {styles.Input}
+                    style={styles.Input}
                     keyboardType='numeric'
                     value={WallMethods.getMaxWallsAmount(data)}
                     onChangeText={(amount) => WallMethods.setMaxWallsAmount(setData, amount)}
@@ -33,7 +34,9 @@ export default function MaxWallsAmountInput() {
                             WallMethods.setMaxWallsAmount(setData, '0')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

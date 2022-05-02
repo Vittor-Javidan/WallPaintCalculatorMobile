@@ -5,6 +5,15 @@ import {
 
 export default class WallMethods {
 
+    static getLanguage(data) { return data.language }
+    static setLanguage(setData, language) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.language = language
+            return newData
+        })
+    }
+
     static getMaxWallsAmount(data) { return data.maxWallsAmount }
     static setMaxWallsAmount(setData, amount) {
         setData(prev => {
@@ -387,18 +396,20 @@ export class ResultMethods {
                 const coatAmount = Number(GallonsFormatMethods.getCoatAmount(newData))
                 const paintEfficiency = Number(GallonsFormatMethods.getPaintEfficiency(newData))
                 const areaToPaint = Number(ResultMethods.getTotalAreaToPaint(newData))
-                let totalGallons
+                let totalGallons = ''
 
                 let gallons = Math.ceil(
                     (areaToPaint / paintEfficiency) * coatAmount
                 )
 
-                gallons > 1
-                    ? totalGallons = `${gallons} gallons`
-                    : totalGallons = `${gallons} gallon`
+                console.log(totalGallons)
+                totalGallons
 
-                if (!gallons)
-                    totalGallons = 'No gallons'
+                gallons > 1
+                    ? totalGallons = `${gallons}`
+                    : totalGallons = ''
+
+                console.log(totalGallons)
 
                 newData.results.totalGallons = totalGallons
                 //===========================================================================
@@ -486,7 +497,7 @@ export class ResultMethods {
 
                         if (gallons > 0) {
                             areaToPaint -= areaPerGallon[gallon_index] * gallons
-                            totalGallons += `${gallons} gallons of ${gallonsSizesNumbers[gallon_index]}L / `
+                            totalGallons += `${gallons}x ${gallonsSizesNumbers[gallon_index]}L // `
                             totalPrice += gallonPricesNumbers[gallon_index] * gallons
                         }
 
@@ -497,13 +508,10 @@ export class ResultMethods {
                         )
 
                         areaToPaint -= areaPerGallon[gallon_index] * gallons
-                        totalGallons += `${gallons} gallons of ${gallonsSizesNumbers[gallon_index]}L / `
+                        totalGallons += `${gallons}x ${gallonsSizesNumbers[gallon_index]}L // `
                         totalPrice += gallonPricesNumbers[gallon_index] * gallons
                     }
                 }
-
-                if (totalGallons === '')
-                    totalGallons = 'No gallons'
 
                 newData.results.totalGallons = totalGallons
                 newData.results.totalPrice = `${totalPrice}`

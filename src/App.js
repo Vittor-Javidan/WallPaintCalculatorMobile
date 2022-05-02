@@ -6,8 +6,10 @@ import {
     ScrollView
 } from 'react-native'
 
+import languages from './languages'
 import { defaultData } from './defaultData'
 
+import LanguageButton from './Components/LanguageButton'
 import Walls from './Components/Walls'
 import Config from './Components/Config'
 import Output from './Components/Output'
@@ -17,8 +19,16 @@ export const AppContext = React.createContext()
 export default function App() {
 
     const [data, setData] = React.useState({ ...defaultData })
+    const [allLanguages, setAllLanguages] = React.useState({ ...languages })
 
+    let L
+    data.language === 'eng'
+        ? L = allLanguages.eng
+        : L = allLanguages.pt_br        
+    const T = L.App.texts
+    
     const props = {
+        L,
         data,
         setData
     }
@@ -29,11 +39,12 @@ export default function App() {
                 <ScrollView style={styles.ScrollView}>
                     <View style={styles.AppBody}>
                         <Text style={styles.title}>
-                            Wall Paint Calculator
+                            {T.Wall_Paint_Calculator}
                         </Text>
                         <Walls />
                         <Config />
                         <Output />
+                        <LanguageButton />
                     </View>
                 </ScrollView>
             </View>

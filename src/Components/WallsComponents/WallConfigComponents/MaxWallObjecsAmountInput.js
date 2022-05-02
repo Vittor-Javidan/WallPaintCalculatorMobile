@@ -13,12 +13,13 @@ import WallMethods from '../../../Scripts/utilClasses/WallMethods'
 
 export default function MaxWallObjecsAmountInput() {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallConfig.MaxWallObjecsAmountInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Max Wall Objects Amount
+                {T.Max_Wall_Objects_Amount}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function MaxWallObjecsAmountInput() {
                             WallMethods.setMaxWallObjectsAmout(setData, '0')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

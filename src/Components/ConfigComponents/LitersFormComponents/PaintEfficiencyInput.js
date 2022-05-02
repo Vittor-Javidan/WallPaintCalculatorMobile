@@ -13,12 +13,13 @@ import WallMethods, { LitersFormatMethods } from '../../../Scripts/utilClasses/W
 
 export default function PaintEfficiencyInput({ index_i, index_j }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Config.LitersForm.PaintEfficiencyInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Paint Efficiency ({WallMethods.getLenghtUnit(data)}2/L)
+                {T.Coverage}/{T.Liter} ({WallMethods.getLenghtUnit(data)}2/L)
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function PaintEfficiencyInput({ index_i, index_j }) {
                             LitersFormatMethods.setPaintEfficiency(setData, '0')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

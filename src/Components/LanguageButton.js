@@ -1,6 +1,5 @@
 import React from 'react'
-import { AppContext } from '../../App'
-import { configOptions } from '../../defaultData'
+import { AppContext } from '../App'
 
 import {
     View,
@@ -9,52 +8,54 @@ import {
     StyleSheet
 } from 'react-native'
 
-import WallMethods from '../../Scripts/utilClasses/WallMethods'
+import WallMethods from '../Scripts/utilClasses/WallMethods'
 
-export default function MeasureUnitConfig() {
+export default function LanguageButton() {
 
     const { L, data, setData } = React.useContext(AppContext)
-    const T = L.App.Walls.MeasureUnitConfig.texts
+    const T = L.App.LanguageButton.texts
 
-    let metersButtonStatus
-    let metersButtonText
-    let feetsButtonStatus
-    let feetsButtonText
-    if (WallMethods.getLenghtUnit(data) === configOptions.LENGHT_UNIT.METERS) {
-        metersButtonStatus = metersButtonStyle.ButtonSelected
-        metersButtonText = metersButtonStyle.TextSelected
-        feetsButtonStatus = feetsButtonStyle.Button
-        feetsButtonText = feetsButtonStyle.Text
+    let engButtonStatus
+    let engButtonText
+    let pt_brButtonStatus
+    let pt_brButtonText
+    if (WallMethods.getLanguage(data) === 'eng') {
+        engButtonStatus = engButtonStyle.ButtonSelected
+        engButtonText = engButtonStyle.TextSelected
+        pt_brButtonStatus = pt_brButtonStyle.Button
+        pt_brButtonText = pt_brButtonStyle.Text
     } else {
-        metersButtonStatus = metersButtonStyle.Button
-        metersButtonText = metersButtonStyle.Text
-        feetsButtonStatus = feetsButtonStyle.ButtonSelected
-        feetsButtonText = feetsButtonStyle.TextSelected
+        engButtonStatus = engButtonStyle.Button
+        engButtonText = engButtonStyle.Text
+        pt_brButtonStatus = pt_brButtonStyle.ButtonSelected
+        pt_brButtonText = pt_brButtonStyle.TextSelected
     }
 
     return (
         <View style={formStyles.Form}>
-            <Text style={formStyles.Title}>{T.Measure_Unit}</Text>
+            <Text style={formStyles.Title}>
+                {T.Languages}
+            </Text>
             <View style={formStyles.Buttons}>
-                <View style={feetsButtonStatus}>
+                <View style={engButtonStatus}>
                     <TouchableOpacity
                         onPress={() => {
-                            WallMethods.setLenghtUnit(setData, configOptions.LENGHT_UNIT.FEETS)
+                            WallMethods.setLanguage(setData, 'eng')
                         }}
                     >
-                        <Text style={feetsButtonText}>
-                            {T.Feets}
+                        <Text style={engButtonText}>
+                            English
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={metersButtonStatus}>
+                <View style={pt_brButtonStatus}>
                     <TouchableOpacity
                         onPress={() => {
-                            WallMethods.setLenghtUnit(setData, configOptions.LENGHT_UNIT.METERS)
+                            WallMethods.setLanguage(setData, 'pt_br')
                         }}
                     >
-                        <Text style={metersButtonText}>
-                            {T.Meters}
+                        <Text style={pt_brButtonText}>
+                            Português BR
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -71,27 +72,28 @@ const formStyles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: '#000000',
-        backgroundColor: '#7F5539',
+        backgroundColor: '#EDE0D4',
         alignItems: 'center',
         marginBottom: 2
     },
     Title: {
         fontSize: 20,
         fontWeight: '700',
-        color: '#EDE0D4',
+        color: '#7F5539',
         marginVertical: 5
     },
     Buttons: {
-        width: '100%',
+        width: '99%',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginBottom: 1
     },
 })
 
-const metersButtonStyle = StyleSheet.create({
+const engButtonStyle = StyleSheet.create({
     Button: {
-        backgroundColor: '#EDE0D4',
+        backgroundColor: '#7F5539',
         width: '48%',
         borderWidth: 1,
         borderRadius: 5,
@@ -108,7 +110,7 @@ const metersButtonStyle = StyleSheet.create({
     },
     Text: {
         alignSelf: 'center',
-        color: '#7F5539',
+        color: '#EDE0D4',
         fontSize: 15,
         fontWeight: '700',
     },
@@ -120,9 +122,9 @@ const metersButtonStyle = StyleSheet.create({
     }
 })
 
-const feetsButtonStyle = StyleSheet.create({
+const pt_brButtonStyle = StyleSheet.create({
     Button: {
-        backgroundColor: '#EDE0D4',
+        backgroundColor: '#7F5539',
         width: '48%',
         borderWidth: 1,
         borderRadius: 5,
@@ -139,7 +141,7 @@ const feetsButtonStyle = StyleSheet.create({
     },
     Text: {
         alignSelf: 'center',
-        color: '#7F5539',
+        color: '#EDE0D4',
         fontSize: 15,
         fontWeight: '700',
     },

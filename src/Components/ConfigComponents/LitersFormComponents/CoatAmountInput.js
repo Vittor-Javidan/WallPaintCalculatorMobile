@@ -13,7 +13,8 @@ import { LitersFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
 
 export default function CoatAmountInput({ index_i, index_j }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Config.LitersForm.CoatAmountInput.texts
 
     function decreaseDuplicates() {
         let amount = Number(LitersFormatMethods.getCoatAmount(data)) - 1
@@ -30,7 +31,7 @@ export default function CoatAmountInput({ index_i, index_j }) {
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Coat Amount
+                {T.Coat_Amount}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput

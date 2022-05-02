@@ -1,4 +1,6 @@
 import React from 'react'
+import { AppContext } from '../../App'
+
 import {
     View,
     Text,
@@ -12,10 +14,13 @@ import WallsAmountInput from './WallConfigComponents/WallsAmountInput'
 
 export default function WallConfig() {
 
+    const { L } = React.useContext(AppContext)
+    const T = L.App.Walls.WallConfig.texts
+
     return (
         <View style={styles.Form}>
             <Text style={styles.Title}>
-                Wall Config:
+                {T.Wall_Config}:
             </Text>
             <View style={styles.Inputs}>
                 <MaxWallsAmountInput />

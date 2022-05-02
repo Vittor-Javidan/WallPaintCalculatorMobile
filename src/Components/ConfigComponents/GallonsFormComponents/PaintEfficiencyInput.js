@@ -13,12 +13,13 @@ import WallMethods, { GallonsFormatMethods } from '../../../Scripts/utilClasses/
 
 export default function PaintEfficiencyInput() {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Config.GallonsForm.PaintEfficiencyInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Coverage/gallon ({WallMethods.getLenghtUnit(data)}2/gallon)
+                {T.Coverage}/{T.gallon} ({WallMethods.getLenghtUnit(data)}2/{T.gallon})
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput

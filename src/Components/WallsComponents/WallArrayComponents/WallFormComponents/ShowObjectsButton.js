@@ -12,7 +12,8 @@ import WallMethods from '../../../../Scripts/utilClasses/WallMethods'
 
 export default function ShowObjectsButton({ index }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.ShowObjectsButton.texts
 
     const showObjects = WallMethods.getShowObjects(data, index)
     const objectsAmount = WallMethods.getObjectsAmount(data, index)
@@ -25,8 +26,12 @@ export default function ShowObjectsButton({ index }) {
                         onPress={() => WallMethods.setShowObjects(setData, index, !showObjects)}
                     >
                         {showObjects
-                            ? <Text style={styles.HideText}>HideObjects</Text>
-                            : <Text style={styles.ShowText}>showObjects</Text>}
+                            ? <Text style={styles.HideText}>
+                                {T.HideObjects}
+                            </Text>
+                            : <Text style={styles.ShowText}>
+                                {T.ShowObjects}
+                            </Text>}
 
 
                     </TouchableOpacity>

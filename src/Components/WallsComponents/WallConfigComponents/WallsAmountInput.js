@@ -11,18 +11,19 @@ import {
 
 import WallMethods from '../../../Scripts/utilClasses/WallMethods'
 
-export default function WallsAmountInput(){
+export default function WallsAmountInput() {
 
-    const {data, setData} = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallConfig.WallsAmountInput.texts
 
-    function decreaseWallAmount(){
-        let amount = Number(WallMethods.getWallsAmount(data)) - 1
-        if(amount < 0)
-            amount = 0
-        WallMethods.setWallsAmount(setData, String(amount))
-    }
+        function decreaseWallAmount() {
+            let amount = Number(WallMethods.getWallsAmount(data)) - 1
+            if (amount < 0)
+                amount = 0
+            WallMethods.setWallsAmount(setData, String(amount))
+        }
 
-    function increaseWallAmount(){
+    function increaseWallAmount() {
         let amount = Number(WallMethods.getWallsAmount(data)) + 1
         WallMethods.setWallsAmount(setData, String(amount))
     }
@@ -30,18 +31,18 @@ export default function WallsAmountInput(){
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Wall Amount
+                {T.Wall_Amount} 
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
                     style={styles.Input}
                     keyboardType='numeric'
                     value={WallMethods.getWallsAmount(data)}
-                    onChangeText={(amount)=> WallMethods.setWallsAmount(setData, amount)}
+                    onChangeText={(amount) => WallMethods.setWallsAmount(setData, amount)}
                 />
                 <View style={styles.DecreaseButton}>
-                    <TouchableOpacity 
-                        onPress={decreaseWallAmount} 
+                    <TouchableOpacity
+                        onPress={decreaseWallAmount}
                     >
                         <Text style={styles.Text}>
                             -
@@ -49,8 +50,8 @@ export default function WallsAmountInput(){
                     </TouchableOpacity>
                 </View>
                 <View style={styles.IncreaseButton}>
-                    <TouchableOpacity 
-                        onPress={increaseWallAmount} 
+                    <TouchableOpacity
+                        onPress={increaseWallAmount}
                     >
                         <Text style={styles.Text}>
                             +

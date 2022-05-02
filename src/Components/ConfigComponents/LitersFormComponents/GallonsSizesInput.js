@@ -13,12 +13,13 @@ import { LitersFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
 
 export default function GallonsSizesInput() {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Config.LitersForm.GallonsSizesInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Gallons Sizes (Liters)
+                {T.Gallons_Sizes} ({T.Liters})
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function GallonsSizesInput() {
                             LitersFormatMethods.setGallonsSizes(setData, '')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -16,12 +16,13 @@ import ObjectDuplicatesInput from './ObjectFormComponents/ObjectDuplicatesInput'
 
 export default function ObjectForm({ index_i, index_j }) {
 
-    const { data } = React.useContext(AppContext)
+    const { L, data } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.ObjectsArray.ObjectForm.texts
 
     return (
         <View style={styles.Form}>
             <Text style={styles.Title}>
-                Objeto {index_j + 1}: {WallMethods.getObjectName(data, index_i, index_j)}
+                {T.Objeto} {index_j + 1}: {WallMethods.getObjectName(data, index_i, index_j)}
             </Text>
             <View style={styles.Inputs}>
                 <ObjectNameInput index_i={index_i} index_j={index_j} />

@@ -12,7 +12,8 @@ import { ResultMethods } from '../../Scripts/utilClasses/WallMethods'
 
 export default function CalculationButton({ status }) {
 
-    const { setData } = React.useContext(AppContext)
+    const { L, setData } = React.useContext(AppContext)
+    const T = L.App.Output.CalculationButton.texts
 
     return (
         <View style={styles.Container}>
@@ -26,7 +27,7 @@ export default function CalculationButton({ status }) {
                     }
                 }}
             >
-                <Text style={styles.Text}>clique para calcular</Text>
+                <Text style={styles.Text}>{T.Calculate}</Text>
             </TouchableOpacity>
         </View>
     )

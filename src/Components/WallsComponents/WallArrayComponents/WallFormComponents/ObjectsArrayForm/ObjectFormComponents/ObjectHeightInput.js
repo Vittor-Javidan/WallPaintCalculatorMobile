@@ -13,12 +13,13 @@ import WallMethods from '../../../../../../Scripts/utilClasses/WallMethods'
 
 export default function ObjectHeightInput({ index_i, index_j }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.ObjectsArray.ObjectForm.ObjectHeightInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Height ({WallMethods.getLenghtUnit(data)})
+                {T.Height} ({WallMethods.getLenghtUnit(data)})
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function ObjectHeightInput({ index_i, index_j }) {
                             WallMethods.setObjectHeight(setData, index_i, index_j, '0')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

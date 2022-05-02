@@ -13,12 +13,13 @@ import WallMethods from '../../../Scripts/utilClasses/WallMethods'
 
 export default function DefaultHeightInput() {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallConfig.DefaultHeightInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Default height ({WallMethods.getLenghtUnit(data)})
+                {T.Default_height} ({WallMethods.getLenghtUnit(data)})
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function DefaultHeightInput() {
                             WallMethods.setDefaultWallHeight(setData, '0')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

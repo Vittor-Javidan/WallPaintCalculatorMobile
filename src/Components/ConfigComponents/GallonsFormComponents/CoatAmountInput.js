@@ -13,7 +13,8 @@ import { GallonsFormatMethods } from '../../../Scripts/utilClasses/WallMethods'
 
 export default function CoatAmountInput() {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Config.GallonsForm.CoatAmountInput.texts
 
     function decreaseDuplicates() {
         let amount = Number(GallonsFormatMethods.getCoatAmount(data)) - 1
@@ -30,7 +31,7 @@ export default function CoatAmountInput() {
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Coat Amount
+                {T.Coat_Amount}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput

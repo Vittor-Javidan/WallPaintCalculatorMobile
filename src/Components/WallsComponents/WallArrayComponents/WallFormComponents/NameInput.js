@@ -13,12 +13,13 @@ import WallMethods from '../../../../Scripts/utilClasses/WallMethods'
 
 export default function NameInput({ index }) {
 
-    const { data, setData } = React.useContext(AppContext)
+    const { L, data, setData } = React.useContext(AppContext)
+    const T = L.App.Walls.WallsArray.WallForm.NameInput.texts
 
     return (
         <View style={styles.Container}>
             <Text style={styles.Label}>
-                Name 
+                {T.Name}
             </Text>
             <View style={styles.SubContainer}>
                 <TextInput
@@ -33,7 +34,9 @@ export default function NameInput({ index }) {
                             WallMethods.setWallName(setData, index, '')
                         }}
                     >
-                        <Text style={styles.Text}>Del</Text>
+                        <Text style={styles.Text}>
+                            {T.Del}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>
