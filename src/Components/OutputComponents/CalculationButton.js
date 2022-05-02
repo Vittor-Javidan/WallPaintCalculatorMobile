@@ -5,7 +5,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
 } from 'react-native'
 
 import ResultMethods from '../../Scripts/utilClasses/ResultMethods'
@@ -13,8 +13,8 @@ import ResultMethods from '../../Scripts/utilClasses/ResultMethods'
 export default function CalculationButton({ status }) {
 
     const { 
-        language, 
-        setData 
+        language,
+        data, setData 
     } = React.useContext(AppContext)
     const T = language.CalculationButton
 

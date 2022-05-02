@@ -14,6 +14,12 @@ export default class LanguageSystem {
         else
             return languages.eng
     }
+    static getLoadedDataLanguage(data) {
+        if (data.language === configOptions.LANGUAGES.PT_BR)
+            return languages.pt_br
+        else
+            return languages.eng
+    }
     static getDataLanguage(data) { return data.language }
     static setLanguage(setData, setLanguage, language) {
 
@@ -32,8 +38,8 @@ export default class LanguageSystem {
         })
     }
 
-    static getWarningMsg(data) {
-        if (data.language === configOptions.LANGUAGES.PT_BR)
+    static getWarningMsg() {
+        if (defaultData.language === configOptions.LANGUAGES.PT_BR)
             return warningMsgs.pt_br
         else
             return warningMsgs.eng

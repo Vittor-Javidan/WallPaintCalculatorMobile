@@ -82,7 +82,9 @@ diferentes.
 	- crear um botão de mostrar mais opções, nas configurações de parede, para limpar o excesso de informação
 	- adicionar multiplicador no nome das paredes e objetos
 	- Adicionar tradução para os avisos
+	- adicionar salvamento automático
 
 - ### A fazer:
+	- adicionar intruções no rodapé do aplicativo
 
-	- adicionar salvamento automático
+

@@ -1,5 +1,5 @@
 import React from 'react'
-import { defaultData } from './defaultData'
+import { configOptions, defaultData } from './defaultData'
 
 import {
     View,
@@ -8,6 +8,7 @@ import {
     ScrollView
 } from 'react-native'
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import LanguageSystem from './Scripts/utilClasses/LanguageSystem'
 
 import MeasureUnitConfig from './Components/MeasureUnitConfig'
@@ -18,17 +19,28 @@ import LanguageButton from './Components/LanguageButton'
 
 export const AppContext = React.createContext()
 
+const loadData = async (setData, setLanguage) => {
+    let value = await AsyncStorage.getItem('newItem')
+    value = await JSON.parse(value)
+    setData(value)
+    setLanguage(LanguageSystem.getLoadedDataLanguage(value))
+}
+
 export default function App() {
 
     const [language, setLanguage] = React.useState(LanguageSystem.getDefaultLanguage())
-    const [data, setData] = React.useState({ ...defaultData })
+    const [data, setData] = React.useState(defaultData)
 
     const T = language.App
 
     const props = {
-        language,   setLanguage,
-        data,       setData
+        language, setLanguage,
+        data, setData
     }
+
+    React.useEffect(() => {
+        loadData(setData, setLanguage)
+    }, [])
 
     return (
         <AppContext.Provider value={props}>

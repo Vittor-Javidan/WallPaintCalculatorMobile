@@ -2,6 +2,8 @@ import WallMethods from "./WallMethods"
 import LitersFormatMethods from "./LitersFormatMethods"
 import GallonsFormatMethods from "./GallonsFormatMethods"
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 export default class ResultMethods {
 
     static getTotalWallArea(data) { return data.results.totalWallArea }
@@ -93,14 +95,11 @@ export default class ResultMethods {
                     (areaToPaint / paintEfficiency) * coatAmount
                 )
 
-                console.log(totalGallons)
                 totalGallons
 
                 gallons > 0
                     ? totalGallons = `${gallons}`
                     : totalGallons = ``
-
-                console.log(totalGallons)
 
                 newData.results.totalGallons = totalGallons
                 //===========================================================================
@@ -118,6 +117,17 @@ export default class ResultMethods {
                 const totalPrice = gallonPrice * gallons
                 newData.results.totalPrice = String(totalPrice)
                 //=============================================
+
+                //SaveData
+                const saveData = async value => {
+                    try {
+                        await AsyncStorage.setItem('newItem', value)
+                    } catch (e) {
+                        // saving error
+                    }
+                }
+                saveData(JSON.stringify(newData))
+                //=============================================================================
 
                 return newData
 
@@ -215,6 +225,17 @@ export default class ResultMethods {
                 const seconds = date.getSeconds()
                 newData.results.time = `${hour}:${minutes}:${seconds}`
                 //===================================================
+
+                //SaveData
+                const saveData = async value => {
+                    try {
+                        await AsyncStorage.setItem('newItem', value)
+                    } catch (e) {
+                        //
+                    }
+                }
+                saveData(JSON.stringify(newData))
+                //=============================================================================
 
                 return newData
             }
