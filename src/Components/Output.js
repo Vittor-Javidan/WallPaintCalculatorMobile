@@ -2,8 +2,6 @@ import React from 'react'
 import { AppContext } from '../App'
 import { configOptions } from '../defaultData'
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
 import {
     View,
     Text,

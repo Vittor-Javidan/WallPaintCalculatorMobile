@@ -219,6 +219,15 @@ export default class WallMethods {
         })
     }
 
+    static getShowInstructions(data) { return data.showInstructions }
+    static setShowInstructions(setData, booleanValue) {
+        setData(prev => {
+            const newData = { ...prev }
+            newData.showInstructions = booleanValue
+            return newData
+        })
+    }
+
     static arrayExpansion(array, arraySize, data) {
 
         let newArray = [...array]

@@ -38,8 +38,8 @@ export default class LanguageSystem {
         })
     }
 
-    static getWarningMsg() {
-        if (defaultData.language === configOptions.LANGUAGES.PT_BR)
+    static getWarningMsg(data) {
+        if (data.language === configOptions.LANGUAGES.PT_BR)
             return warningMsgs.pt_br
         else
             return warningMsgs.eng

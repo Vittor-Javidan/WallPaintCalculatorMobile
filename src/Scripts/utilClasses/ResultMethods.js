@@ -109,7 +109,10 @@ export default class ResultMethods {
                 const hour = date.getHours()
                 const minutes = date.getMinutes()
                 const seconds = date.getSeconds()
-                newData.results.time = `${hour}:${minutes}:${seconds}`
+                var dd = String(date.getDate()).padStart(2, '0');
+                var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = date.getFullYear();
+                newData.results.time = ` ${hour}:${minutes}:${seconds} - ${dd}/${mm}/${yyyy}`
                 //===================================================
 
                 // set the price
@@ -122,6 +125,7 @@ export default class ResultMethods {
                 const saveData = async value => {
                     try {
                         await AsyncStorage.setItem('newItem', value)
+                        alert('Data saved! / Informações salvas!')
                     } catch (e) {
                         // saving error
                     }
@@ -223,13 +227,17 @@ export default class ResultMethods {
                 const hour = date.getHours()
                 const minutes = date.getMinutes()
                 const seconds = date.getSeconds()
-                newData.results.time = `${hour}:${minutes}:${seconds}`
+                var dd = String(date.getDate()).padStart(2, '0');
+                var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = date.getFullYear();
+                newData.results.time = ` ${hour}:${minutes}:${seconds} - ${dd}/${mm}/${yyyy}`
                 //===================================================
 
                 //SaveData
                 const saveData = async value => {
                     try {
                         await AsyncStorage.setItem('newItem', value)
+                        alert('Data saved! / Informações salvas!')
                     } catch (e) {
                         //
                     }

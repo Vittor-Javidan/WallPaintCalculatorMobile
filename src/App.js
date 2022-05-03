@@ -1,5 +1,5 @@
 import React from 'react'
-import { configOptions, defaultData } from './defaultData'
+import { defaultData } from './defaultData'
 
 import {
     View,
@@ -11,19 +11,28 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LanguageSystem from './Scripts/utilClasses/LanguageSystem'
 
+import LanguageButton from './Components/LanguageButton'
 import MeasureUnitConfig from './Components/MeasureUnitConfig'
 import Walls from './Components/Walls'
 import Config from './Components/Config'
 import Output from './Components/Output'
-import LanguageButton from './Components/LanguageButton'
+import Instructions from './Components/Instructions'
+
 
 export const AppContext = React.createContext()
 
 const loadData = async (setData, setLanguage) => {
     let value = await AsyncStorage.getItem('newItem')
     value = await JSON.parse(value)
-    setData(value)
-    setLanguage(LanguageSystem.getLoadedDataLanguage(value))
+    if(value !==null){
+        alert('Loading / Carregando')
+        setData({
+            ...defaultData, // Ensures that any new feature inside default data will be updated into save files
+            ...value
+        })
+        setLanguage(LanguageSystem.getLoadedDataLanguage(value))
+        alert('Done! / Pronto!')
+    }
 }
 
 export default function App() {
@@ -55,6 +64,7 @@ export default function App() {
                         <Walls />
                         <Config />
                         <Output />
+                        <Instructions />
                     </View>
                 </ScrollView>
             </View>

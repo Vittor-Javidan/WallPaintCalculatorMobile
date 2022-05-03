@@ -82,6 +82,8 @@ const defaultData = {
         totalPrice: 'press calculate',
     },
 
+    showInstructions: false
+
     /*
         All info must be strings, and the logics have to consider this
         to avoid type problems when receive a user input. Types conversion 
