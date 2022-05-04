@@ -144,7 +144,7 @@ const pt_br = {
     },
     Instructions: {
         Saving_data: 'Salvando informações',
-        Saving_data_text: 'Quando a condição estiver "ok" e você clica no botão "Calcular", toda as informações preenchidas até o momento serão salvas. Se você acidentalmente perder qualquer informação por qualquer razão, tudo o que precisa ser feito é fechar e abrir o aplicativo para restaurar o último estado salvo',
+        Saving_data_text: 'Quando a condição estiver "ok" e você clicar no botão "Calcular", todas as informações preenchidas até o momento serão salvas. Se você acidentalmente perder qualquer informação por qualquer razão, tudo o que precisa ser feito é fechar e abrir o aplicativo para restaurar o último estado salvo',
         Precautions: 'Precauções',
         Precautions_text: 'Esse aplicativo é extremamente responsivo. Se você adicionar 2 paredes e depois voltar para o valor 1, as informações preenchidas na segunda parede serão perdidas. Use o campo de escrita para uma configuração rápida, mas se você já preencheu alguma informação, use os botões ao invés de escrever diretamente o valor',
         Copies: 'Cópias',
