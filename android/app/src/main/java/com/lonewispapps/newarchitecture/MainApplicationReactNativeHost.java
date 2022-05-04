@@ -1,4 +1,4 @@
-package com.wallpaintcalculatormobile.newarchitecture;
+package com.lonewispapps.wallpaintcalculatormobile.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.wallpaintcalculatormobile.BuildConfig;
-import com.wallpaintcalculatormobile.newarchitecture.components.MainComponentsRegistry;
-import com.wallpaintcalculatormobile.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.lonewispapps.wallpaintcalculatormobile.BuildConfig;
+import com.lonewispapps.wallpaintcalculatormobile.newarchitecture.components.MainComponentsRegistry;
+import com.lonewispapps.wallpaintcalculatormobile.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

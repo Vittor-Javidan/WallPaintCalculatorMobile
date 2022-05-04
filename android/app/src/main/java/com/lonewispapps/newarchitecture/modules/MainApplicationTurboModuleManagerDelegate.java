@@ -1,4 +1,4 @@
-package com.wallpaintcalculatormobile.newarchitecture.modules;
+package com.lonewispapps.wallpaintcalculatormobile.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
